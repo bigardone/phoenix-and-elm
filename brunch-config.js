@@ -7,15 +7,15 @@ exports.config = {
       // To use a separate vendor.js bundle, specify two files path
       // http://brunch.io/docs/config#-files-
       // joinTo: {
-      //  "js/app.js": /^(web\/static\/js)/,
-      //  "js/vendor.js": /^(web\/static\/vendor)|(deps)/
+      //  'js/app.js': /^(web\/static\/js)/,
+      //  'js/vendor.js': /^(web\/static\/vendor)|(deps)/
       // }
       //
       // To change the order of concatenation of files, explicitly mention here
       // order: {
       //   before: [
-      //     "web/static/vendor/js/jquery-2.1.1.js",
-      //     "web/static/vendor/js/bootstrap.min.js"
+      //     'web/static/vendor/js/jquery-2.1.1.js',
+      //     'web/static/vendor/js/bootstrap.min.js''
       //   ]
       // }
     },
@@ -32,8 +32,8 @@ exports.config = {
 
   conventions: {
     // This option sets where we should place non-css and non-js assets in.
-    // By default, we set this to "/web/static/assets". Files in this directory
-    // will be copied to `paths.public`, which is "priv/static" by default.
+    // By default, we set this to '/web/static/assets'. Files in this directory
+    // will be copied to `paths.public`, which is 'priv/static'' by default.
     assets: /^(web\/static\/assets)/,
   },
 
@@ -61,6 +61,11 @@ exports.config = {
       mainModules: ['Main.elm'],
       outputFolder: '../static/js',
     },
+    stylus: {
+       plugins: {
+         stylus: ['nib'],
+       },
+     },
   },
 
   modules: {
@@ -71,5 +76,8 @@ exports.config = {
 
   npm: {
     enabled: true,
+     styles: {
+       'normalize.css': ['normalize.css']
+     }
   },
 };
