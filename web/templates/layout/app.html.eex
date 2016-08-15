@@ -8,7 +8,8 @@
     <meta name="author" content="">
 
     <title>Hello PhoenixAndElm!</title>
-    <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
+    <link href="https://fonts.googleapis.com/css?family=Fjalla+One|Average+Sans" rel="stylesheet" type: "text/css"/>
+    <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>"/>
   </head>
 
   <body>
