@@ -1,0 +1,76 @@
+.cards-wrapper
+  clearfix()
+  position: relative
+  .card
+    transition()
+    background: white
+    margin-bottom: 2rem
+    border-radius: $base-border-radius
+    color: $base-background-color
+    header
+      padding: 1rem
+      clearfix()
+      color: white
+      margin-bottom: 0.5em
+      border-radius: $base-border-radius $base-border-radius 0 0
+      h4
+        overflow: hidden
+        text-overflow: ellipsis
+        white-space: nowrap
+      .avatar-wrapper
+        position: relative
+        .avatar
+          position: absolute
+          background-color: #FFF
+          width: 105px
+          height: 105px
+          border-radius: 50%
+          display: block
+          margin-bottom: .5rem
+          border: 3px solid #fff
+    .card-body
+      padding: 1rem
+      clearfix()
+      border-radius: 0 0 $base-border-radius $base-border-radius
+    .meta
+      font-size: 0.9em
+      li
+        overflow: hidden
+        text-overflow: ellipsis
+        white-space: nowrap
+      .fa
+        font-size: 0.9em
+    .headline
+      height: 3em
+      font-style: italic
+      margin-bottom: 2rem
+    .contact-info
+      margin: -1*1rem
+      padding: 1rem
+      background: tint($gray, 10)
+      border-radius: 0 0 $base-border-radius $base-border-radius
+      .fa
+        margin-right: 1em
+        opacity: 0.5
+    &.female
+      header
+        background: tint($pink, 10)
+    &.male
+      header
+        background: tint($blue, 10)
+    &:hover
+      box-shadow: 0 0.2em 0 0 $gray
+      header
+        .avatar
+          transform: scale(1.2)
+          margin-top: -1*30px
+.card-enter
+  transition(0.5s linear all)
+  opacity: 0.01
+.card-enter.card-enter-active
+  opacity: 1
+.card-leave
+  transition(0.5s linear all)
+  opacity: 1
+.card-leave.card-leave-active
+  opacity: 0.01

@@ -1,0 +1,55 @@
+// Typography
+$sans-serif = $helvetica
+$serif = $georgia
+$base-font-family = "Average Sans", sans-serif
+$header-font-family = "Fjalla One", sans-serif
+
+// Sizes
+$base-font-size = 1em
+$base-line-height = $base-font-size * 1.5
+$unitless-line-height = $base-line-height / ($base-line-height * 0 + 1)
+// Strip units from line-height: https://developer.mozilla.org/en-US/docs/Web/CSS/line-height#Prefer_unitless_numbers_for_line-height_values
+
+$header-line-height = $base-font-size * 1.25
+$base-border-radius = 4px
+
+// Colors
+$blue = #3498db
+$green = #2ecc71
+$red = #e74c3c
+$yellow = #f1c40f
+$orange = #e67e22
+$purple = #9b59b6
+$gray = #bdc3c7
+$asphalt = #34495e
+$pink = #ff5aec
+$dark-blue = shade($blue, 15)
+$dark-purple = shade($purple, 15)
+$light-gray = tint($gray, 15)
+$lighter-gray = tint($gray, 20)
+$medium-gray = shade($gray, 10)
+$dark-gray = shade($gray, 40)
+$light-red = tint($red, 15)
+$light-yellow = tint($yellow, 15)
+$light-green = tint($green, 15)
+$dark-asphalt = shade($asphalt, 7)
+$light-blue = tint($blue, 20)
+$dark-orange = shade($orange, 15)
+$dark-red = shade($red, 15)
+$light-pink = tint($pink, 31)
+
+// Background Color
+$base-background-color = $dark-gray
+
+// Font Colors
+$base-font-color = $light-gray
+$base-accent-color = $light-blue
+
+// Link Colors
+$base-link-color = $base-accent-color
+$hover-link-color = shade($base-accent-color, 15)
+$base-button-color = $base-link-color
+$hover-button-color = $hover-link-color
+
+// Border color
+$base-border-color = transparent

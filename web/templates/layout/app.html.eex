@@ -12,7 +12,16 @@
   </head>
 
   <body>
-    <%= render @view_module, @view_template, assigns %>
+    <div id="main_wrapper">
+      <%= render @view_module, @view_template, assigns %>
+    </div>
+    <footer id="main_footer">
+      Crafted with ♥ by
+      <a href="http://codeloveandboards.com" target="_blank"> bigardone</a>
+      <br/>
+      Check out the
+      <a href="https://github.com/bigardone/phoenix-and-elm" target="_blank"> source code</a>
+    </footer>
     <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
   </body>
 </html>

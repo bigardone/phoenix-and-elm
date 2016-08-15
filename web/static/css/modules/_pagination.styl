@@ -1,0 +1,20 @@
+$size = em(14)
+
+.pagination
+  clearfix()
+  margin-bottom: 2rem
+  text-align: center
+  li
+    display: inline-block
+    a, span
+      transition()
+      background: $base-accent-color
+      margin-left: $size / 2
+      display: inline-block
+      border-radius: 50%
+      width: $size
+      height: $size
+    a:hover
+      background: shade($base-accent-color, 10)
+    span
+      background: $gray
