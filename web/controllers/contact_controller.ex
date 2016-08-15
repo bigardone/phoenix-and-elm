@@ -3,9 +3,11 @@ defmodule PhoenixAndElm.ContactController do
 
   alias PhoenixAndElm.{Repo, Contact}
 
-  def index(conn, _params) do
-    contacts = Repo.all Contact
+  def index(conn, params) do
+    page = Contact
+      |> order_by(:first_name)
+      |> Repo.paginate(params)
 
-    render(conn, "index.json", contacts: contacts)
+    render(conn, "index.json", page: page)
   end
 end
