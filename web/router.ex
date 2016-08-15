@@ -20,7 +20,9 @@ defmodule PhoenixAndElm.Router do
   end
 
   # Other scopes may use custom stacks.
-  # scope "/api", PhoenixAndElm do
-  #   pipe_through :api
-  # end
+  scope "/api", PhoenixAndElm do
+    pipe_through :api
+
+    resources "contacts", ContactController, only: [:index]
+  end
 end

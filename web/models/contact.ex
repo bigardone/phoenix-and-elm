@@ -6,6 +6,8 @@ defmodule PhoenixAndElm.Contact do
     {1, :female}
   ]
 
+  @derive {Poison.Encoder, except: [:__meta__, :inserted_at, :updated_at]}
+
   schema "contacts" do
     field :first_name, :string
     field :last_name, :string
