@@ -1,7 +1,11 @@
 module Main exposing (..)
 
 import Html exposing (..)
+import Html.Attributes exposing (..)
 import Html.App as App
+import Http
+import Task exposing (Task)
+import Json.Decode as Decode
 
 
 -- model
@@ -40,12 +44,18 @@ initialModel =
     }
 
 
+init : ( Model, Cmd Msg )
+init =
+    ( initialModel, Cmd.none )
+
+
 
 -- messages
 
 
 type Msg
-    = Page Int
+    = NoOp
+    | Paginate Int
     | Search String
 
 
@@ -53,14 +63,17 @@ type Msg
 -- update
 
 
-update : Msg -> Model -> Model
+update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
-        Page pageNumber ->
-            model
+        NoOp ->
+            ( model, Cmd.none )
+
+        Paginate pageNumber ->
+            ( model, Cmd.none )
 
         Search search ->
-            model
+            ( model, Cmd.none )
 
 
 
@@ -78,15 +91,81 @@ subscriptions model =
 
 view : Model -> Html Msg
 view model =
-    div
+    section
         []
-        [ text "" ]
+        [ header
+            []
+            [ h1 [] [ text "Phoenix and Elm: A real use case" ] ]
+        , div
+            []
+            [ cardsList model ]
+        ]
+
+
+cardsList : Model -> Html a
+cardsList model =
+    [ 1, 2, 3, 4, 5, 6, 7, 8, 9 ]
+        |> List.map renderCards
+        |> div [ class "cards-wrapper" ]
+
+
+renderCards : Int -> Html a
+renderCards model =
+    div
+        [ class "card male" ]
+        [ div
+            [ class "inner" ]
+            [ header
+                []
+                [ div
+                    [ class "avatar-wrapper" ]
+                    [ img [ class "avatar" ] [] ]
+                , div
+                    [ class "info-wrapper" ]
+                    [ h4 [] [ text "Full Name" ]
+                    , ul
+                        [ class "meta" ]
+                        [ li
+                            []
+                            [ i [ class "fa fa-map-marker" ] []
+                            , text "Location"
+                            ]
+                        , li
+                            []
+                            [ i [ class "fa fa-birthday-cake" ] []
+                            , text "01-01-1977"
+                            ]
+                        ]
+                    ]
+                ]
+            , div
+                [ class "card-body" ]
+                [ div
+                    [ class "headline" ]
+                    [ p [] [ text "Headline" ] ]
+                , ul
+                    [ class "contact-info" ]
+                    [ li
+                        []
+                        [ i [ class "fa fa-phone" ] []
+                        , text "555-55-555-55"
+                        ]
+                    , li
+                        []
+                        [ i [ class "fa fa-envelope" ] []
+                        , text "john@doe.com"
+                        ]
+                    ]
+                ]
+            ]
+        ]
 
 
 main : Program Never
 main =
-    App.beginnerProgram
-        { model = initialModel
+    App.program
+        { init = init
         , view = view
         , update = update
+        , subscriptions = subscriptions
         }
