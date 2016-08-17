@@ -98,6 +98,7 @@ view model =
         , div
             []
             [ listContacts model ]
+        , pagination model.total_pages model.page_number
         ]
 
 
