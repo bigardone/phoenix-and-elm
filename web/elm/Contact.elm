@@ -10,59 +10,63 @@ import Models exposing (..)
 
 view : Contact -> Html b
 view model =
-    div
-        [ class "card male" ]
-        [ div
-            [ class "inner" ]
-            [ header
-                []
-                [ div
-                    [ class "avatar-wrapper" ]
-                    [ img
-                        [ class "avatar"
-                        , src model.picture
+    let
+        classes =
+            classList [ ( "card", True ), ( "male", model.gender == 0 ), ( "female", model.gender == 1 ) ]
+    in
+        div
+            [ classes ]
+            [ div
+                [ class "inner" ]
+                [ header
+                    []
+                    [ div
+                        [ class "avatar-wrapper" ]
+                        [ img
+                            [ class "avatar"
+                            , src model.picture
+                            ]
+                            []
                         ]
-                        []
+                    , div
+                        [ class "info-wrapper" ]
+                        [ h4 [] [ text (full_name model) ]
+                        , ul
+                            [ class "meta" ]
+                            [ li
+                                []
+                                [ i [ class "fa fa-map-marker" ] []
+                                , text model.location
+                                ]
+                            , li
+                                []
+                                [ i [ class "fa fa-birthday-cake" ] []
+                                , text model.birth_date
+                                ]
+                            ]
+                        ]
                     ]
                 , div
-                    [ class "info-wrapper" ]
-                    [ h4 [] [ text (full_name model) ]
+                    [ class "card-body" ]
+                    [ div
+                        [ class "headline" ]
+                        [ p [] [ text model.headline ] ]
                     , ul
-                        [ class "meta" ]
+                        [ class "contact-info" ]
                         [ li
                             []
-                            [ i [ class "fa fa-map-marker" ] []
-                            , text model.location
+                            [ i [ class "fa fa-phone" ] []
+                            , text model.phone_number
                             ]
                         , li
                             []
-                            [ i [ class "fa fa-birthday-cake" ] []
-                            , text model.birth_date
+                            [ i [ class "fa fa-envelope" ] []
+                            , text model.email
                             ]
-                        ]
-                    ]
-                ]
-            , div
-                [ class "card-body" ]
-                [ div
-                    [ class "headline" ]
-                    [ p [] [ text model.headline ] ]
-                , ul
-                    [ class "contact-info" ]
-                    [ li
-                        []
-                        [ i [ class "fa fa-phone" ] []
-                        , text model.phone_number
-                        ]
-                    , li
-                        []
-                        [ i [ class "fa fa-envelope" ] []
-                        , text model.email
                         ]
                     ]
                 ]
             ]
-        ]
 
 
 full_name : Contact -> String
