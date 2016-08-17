@@ -49,6 +49,7 @@ $inner-padding = 0.5em
           border: 3px solid #fff
       .info-wrapper
         padding-left: 35%
+
     .card-body
       padding: 1rem
       margin: -1em
@@ -71,9 +72,6 @@ $inner-padding = 0.5em
       padding: 1rem
       background: tint($gray, 10)
       border-radius: 0 0 $base-border-radius $base-border-radius
-      .fa
-        margin-right: 1em
-        opacity: 0.5
     &.female
       header
         background: tint($pink, 10)
@@ -85,6 +83,9 @@ $inner-padding = 0.5em
         .avatar
           transform: scale(1.2)
           margin-top: -1*30px
+  .fa
+    margin-right: 1em
+    opacity: 0.5
 .card-enter
   transition(0.5s linear all)
   opacity: 0.01
