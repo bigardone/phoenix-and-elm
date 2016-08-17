@@ -155,8 +155,7 @@ paginationLink currentPage page =
         li
             []
             [ a
-                [ href "#"
-                , classes
+                [ classes
                 , onClick (Paginate page)
                 ]
                 []
