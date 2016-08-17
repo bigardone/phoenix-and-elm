@@ -1,7 +1,8 @@
 module ContactList exposing (init, view, update, Msg)
 
 import Html exposing (..)
-import Html.Attributes exposing (class, id)
+import Html.Attributes exposing (class, id, href, classList)
+import Html.Events exposing (onClick)
 import Http
 import Task exposing (Task)
 import Contact exposing (view)
@@ -47,13 +48,13 @@ update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
         Paginate pageNumber ->
-            model ! []
+            ( model, fetch { model | page_number = pageNumber } )
 
         Search search ->
             model ! []
 
         FetchSucceed newModel ->
-            { model | entries = newModel.entries, error = "Epaaa" } ! []
+            newModel ! []
 
         FetchError error ->
             { model | error = (toString error) } ! []
@@ -61,7 +62,15 @@ update msg model =
 
 fetch : Model -> Cmd Msg
 fetch model =
-    Task.perform FetchError FetchSucceed (Http.get modelDecoder "http://localhost:4000/api/contacts")
+    Task.perform FetchError FetchSucceed (Http.get modelDecoder (apiUrl model))
+
+
+apiUrl : Model -> String
+apiUrl model =
+    Http.url "http://localhost:4000/api/contacts"
+        [ ( "search", model.search )
+        , ( "page", (toString model.page_number) )
+        ]
 
 
 
@@ -85,10 +94,35 @@ view model =
             []
             [ h1 [] [ text "Phoenix and Elm: A real use case" ]
             ]
+        , pagination model.total_pages model.page_number
         , div
             []
             [ listContacts model ]
         ]
+
+
+pagination : Int -> Int -> Html Msg
+pagination totalPages pageNumber =
+    [1..totalPages]
+        |> List.map (paginationLink pageNumber)
+        |> ul [ class "pagination" ]
+
+
+paginationLink : Int -> Int -> Html Msg
+paginationLink currentPage page =
+    let
+        classes =
+            classList [ ( "active", currentPage == page ) ]
+    in
+        li
+            []
+            [ a
+                [ href "#"
+                , classes
+                , onClick (Paginate page)
+                ]
+                []
+            ]
 
 
 listContacts : Model -> Html a
