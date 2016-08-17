@@ -6,27 +6,14 @@ import Html.App as App
 import Http
 import Task exposing (Task)
 import Json.Decode as Decode
+import Contact exposing (Model, view)
 
 
--- model
-
-
-type alias Contact =
-    { id : Int
-    , first_name : String
-    , last_name : String
-    , gender : Int
-    , birth_date : String
-    , location : String
-    , phone_number : String
-    , email : String
-    , headline : String
-    , picture : String
-    }
+-- MODEL
 
 
 type alias Model =
-    { entries : List Contact
+    { entries : List Contact.Model
     , page_number : Int
     , total_entries : Int
     , total_pages : Int
@@ -50,7 +37,7 @@ init =
 
 
 
--- messages
+-- MESSAGES
 
 
 type Msg
@@ -60,7 +47,7 @@ type Msg
 
 
 
--- update
+-- UPDATE
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -77,7 +64,7 @@ update msg model =
 
 
 
--- subscriptions
+-- SUBSCRIPTIONS
 
 
 subscriptions : Model -> Sub Msg
@@ -86,7 +73,7 @@ subscriptions model =
 
 
 
--- view
+-- VIEW
 
 
 view : Model -> Html Msg
@@ -105,60 +92,8 @@ view model =
 cardsList : Model -> Html a
 cardsList model =
     [ 1, 2, 3, 4, 5, 6, 7, 8, 9 ]
-        |> List.map renderCards
+        |> List.map Contact.view
         |> div [ class "cards-wrapper" ]
-
-
-renderCards : Int -> Html a
-renderCards model =
-    div
-        [ class "card male" ]
-        [ div
-            [ class "inner" ]
-            [ header
-                []
-                [ div
-                    [ class "avatar-wrapper" ]
-                    [ img [ class "avatar" ] [] ]
-                , div
-                    [ class "info-wrapper" ]
-                    [ h4 [] [ text "Full Name" ]
-                    , ul
-                        [ class "meta" ]
-                        [ li
-                            []
-                            [ i [ class "fa fa-map-marker" ] []
-                            , text "Location"
-                            ]
-                        , li
-                            []
-                            [ i [ class "fa fa-birthday-cake" ] []
-                            , text "01-01-1977"
-                            ]
-                        ]
-                    ]
-                ]
-            , div
-                [ class "card-body" ]
-                [ div
-                    [ class "headline" ]
-                    [ p [] [ text "Headline" ] ]
-                , ul
-                    [ class "contact-info" ]
-                    [ li
-                        []
-                        [ i [ class "fa fa-phone" ] []
-                        , text "555-55-555-55"
-                        ]
-                    , li
-                        []
-                        [ i [ class "fa fa-envelope" ] []
-                        , text "john@doe.com"
-                        ]
-                    ]
-                ]
-            ]
-        ]
 
 
 main : Program Never
