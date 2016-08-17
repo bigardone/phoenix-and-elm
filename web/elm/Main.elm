@@ -1,8 +1,23 @@
 module Main exposing (..)
 
-import Html exposing (Html, text)
+import Html.App as App
+import ContactList exposing (init, view, update, Msg)
+import Models exposing (..)
 
 
-main : Html a
+-- SUBSCRIPTIONS
+
+
+subscriptions : Model -> Sub Msg
+subscriptions model =
+    Sub.none
+
+
+main : Program Never
 main =
-    text "Hello, World!"
+    App.program
+        { init = init
+        , view = view
+        , update = update
+        , subscriptions = subscriptions
+        }

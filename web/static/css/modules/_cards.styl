@@ -1,18 +1,36 @@
+$inner-padding = 0.5em
+
 .cards-wrapper
   clearfix()
   position: relative
+  margin: -1 * $inner-padding
+  display: flex
+  flex-wrap: wrap
+  flex-direction: row
+
   .card
-    transition()
-    background: white
+    will-change: transform
+    transition: all 0.3s ease-in
+    flex: 0 1 calc(33.33333333333% - 1em)
     margin-bottom: 2rem
     border-radius: $base-border-radius
     color: $base-background-color
+    padding: .5em
+
+    .inner
+      border-radius: $base-border-radius
+      background: white
+      padding: 1em
+      position: relative
+
     header
       padding: 1rem
       clearfix()
       color: white
       margin-bottom: 0.5em
       border-radius: $base-border-radius $base-border-radius 0 0
+      margin: -1em -1em 2em -1em
+
       h4
         overflow: hidden
         text-overflow: ellipsis
@@ -20,6 +38,7 @@
       .avatar-wrapper
         position: relative
         .avatar
+          transition: all 0.3s ease-in
           position: absolute
           background-color: #FFF
           width: 105px
@@ -28,8 +47,11 @@
           display: block
           margin-bottom: .5rem
           border: 3px solid #fff
+      .info-wrapper
+        padding-left: 35%
     .card-body
       padding: 1rem
+      margin: -1em
       clearfix()
       border-radius: 0 0 $base-border-radius $base-border-radius
     .meta
@@ -59,7 +81,6 @@
       header
         background: tint($blue, 10)
     &:hover
-      box-shadow: 0 0.2em 0 0 $gray
       header
         .avatar
           transform: scale(1.2)

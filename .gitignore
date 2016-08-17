@@ -24,3 +24,4 @@ erl_crash.dump
 /config/prod.secret.exs
 web/elm/elm-stuff
 web/static/js/main.js
+web/elm/elm.js
