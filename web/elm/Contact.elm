@@ -1,31 +1,14 @@
-module Contact exposing (Model, view)
+module Contact exposing (view)
 
 import Html exposing (..)
 import Html.Attributes exposing (..)
-
-
--- MODEL
-
-
-type alias Model =
-    { id : Int
-    , first_name : String
-    , last_name : String
-    , gender : Int
-    , birth_date : String
-    , location : String
-    , phone_number : String
-    , email : String
-    , headline : String
-    , picture : String
-    }
-
+import Models exposing (..)
 
 
 -- VIEW
 
 
-view : a -> Html b
+view : Contact -> Html b
 view model =
     div
         [ class "card male" ]
@@ -35,21 +18,26 @@ view model =
                 []
                 [ div
                     [ class "avatar-wrapper" ]
-                    [ img [ class "avatar" ] [] ]
+                    [ img
+                        [ class "avatar"
+                        , src model.picture
+                        ]
+                        []
+                    ]
                 , div
                     [ class "info-wrapper" ]
-                    [ h4 [] [ text "Full Name" ]
+                    [ h4 [] [ text (full_name model) ]
                     , ul
                         [ class "meta" ]
                         [ li
                             []
                             [ i [ class "fa fa-map-marker" ] []
-                            , text "Location"
+                            , text model.location
                             ]
                         , li
                             []
                             [ i [ class "fa fa-birthday-cake" ] []
-                            , text "01-01-1977"
+                            , text model.birth_date
                             ]
                         ]
                     ]
@@ -58,20 +46,25 @@ view model =
                 [ class "card-body" ]
                 [ div
                     [ class "headline" ]
-                    [ p [] [ text "Headline" ] ]
+                    [ p [] [ text model.headline ] ]
                 , ul
                     [ class "contact-info" ]
                     [ li
                         []
                         [ i [ class "fa fa-phone" ] []
-                        , text "555-55-555-55"
+                        , text model.phone_number
                         ]
                     , li
                         []
                         [ i [ class "fa fa-envelope" ] []
-                        , text "john@doe.com"
+                        , text model.email
                         ]
                     ]
                 ]
             ]
         ]
+
+
+full_name : Contact -> String
+full_name model =
+    model.first_name ++ " " ++ model.last_name
