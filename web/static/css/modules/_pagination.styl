@@ -1,4 +1,4 @@
-$size = em(14)
+$size = 1em
 
 .pagination
   clearfix()
@@ -6,15 +6,17 @@ $size = em(14)
   text-align: center
   li
     display: inline-block
-    a, span
-      transition()
+    a
+      transition: all 300ms linear
       background: $base-accent-color
       margin-left: $size / 2
       display: inline-block
       border-radius: 50%
       width: $size
       height: $size
-    a:hover
-      background: shade($base-accent-color, 10)
-    span
-      background: $gray
+      cursor: pointer
+
+      &:hover
+        background: shade($base-accent-color, 10)
+      &.active
+        background: $gray
