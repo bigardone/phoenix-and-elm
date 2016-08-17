@@ -1,8 +1,8 @@
 module ContactList exposing (init, view, update, Msg)
 
 import Html exposing (..)
-import Html.Attributes exposing (class, id, href, classList)
-import Html.Events exposing (onClick)
+import Html.Attributes exposing (..)
+import Html.Events exposing (onClick, onInput, onSubmit)
 import Http
 import Task exposing (Task)
 import Contact exposing (view)
@@ -35,7 +35,8 @@ init =
 
 type Msg
     = Paginate Int
-    | Search String
+    | SearchInput String
+    | FormSubmit
     | FetchSucceed Model
     | FetchError Http.Error
 
@@ -50,8 +51,11 @@ update msg model =
         Paginate pageNumber ->
             ( model, fetch { model | page_number = pageNumber } )
 
-        Search search ->
-            model ! []
+        FormSubmit ->
+            ( model, fetch { model | page_number = 1 } )
+
+        SearchInput search ->
+            { model | search = search } ! []
 
         FetchSucceed newModel ->
             newModel ! []
@@ -89,17 +93,50 @@ subscriptions model =
 view : Model -> Html Msg
 view model =
     section
-        []
+        [ id "home_index" ]
         [ header
             []
-            [ h1 [] [ text "Phoenix and Elm: A real use case" ]
-            ]
+            [ h1 [] [ text "Phoenix and Elm: A real use case" ] ]
+        , filter model
         , pagination model.total_pages model.page_number
         , div
             []
             [ listContacts model ]
         , pagination model.total_pages model.page_number
         ]
+
+
+filter : Model -> Html Msg
+filter model =
+    let
+        contactWord =
+            if model.total_entries == 1 then
+                "contact"
+            else
+                "contacts"
+
+        headerText =
+            (toString model.total_entries) ++ " " ++ contactWord ++ " found"
+    in
+        div
+            [ class "filter-wrapper" ]
+            [ div
+                [ class "overview-wrapper" ]
+                [ h3 [] [ text headerText ] ]
+            , div
+                [ class "form-wrapper" ]
+                [ Html.form
+                    [ onSubmit FormSubmit ]
+                    [ input
+                        [ type' "search"
+                        , placeholder "Search contacts..."
+                        , onInput SearchInput
+                        , value model.search
+                        ]
+                        []
+                    ]
+                ]
+            ]
 
 
 pagination : Int -> Int -> Html Msg
