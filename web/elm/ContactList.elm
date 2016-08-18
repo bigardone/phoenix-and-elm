@@ -4,6 +4,7 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (onClick, onInput, onSubmit)
 import Http
+import String
 import Task exposing (Task)
 import Contact exposing (view)
 import Decoders exposing (modelDecoder)
@@ -39,6 +40,7 @@ type Msg
     | FormSubmit
     | FetchSucceed Model
     | FetchError Http.Error
+    | Reset
 
 
 
@@ -62,6 +64,13 @@ update msg model =
 
         FetchError error ->
             { model | error = (toString error) } ! []
+
+        Reset ->
+            let
+                newModel =
+                    { model | search = "" }
+            in
+                ( newModel, fetch newModel )
 
 
 fetch : Model -> Cmd Msg
@@ -127,7 +136,8 @@ filter model =
                 [ class "form-wrapper" ]
                 [ Html.form
                     [ onSubmit FormSubmit ]
-                    [ input
+                    [ resetButton model "reset"
+                    , input
                         [ type' "search"
                         , placeholder "Search contacts..."
                         , onInput SearchInput
@@ -162,8 +172,38 @@ paginationLink currentPage page =
             ]
 
 
-listContacts : Model -> Html a
+listContacts : Model -> Html Msg
 listContacts model =
-    model.entries
-        |> List.map Contact.view
-        |> div [ class "cards-wrapper" ]
+    if model.total_entries > 0 then
+        model.entries
+            |> List.map Contact.view
+            |> div [ class "cards-wrapper" ]
+    else
+        let
+            classes =
+                classList [ ( "warning", True ), ( "hidden", String.length model.search == 0 ) ]
+        in
+            div
+                [ classes ]
+                [ span
+                    [ class "fa-stack" ]
+                    [ i [ class "fa fa-meh-o fa-stack-2x" ] [] ]
+                , h4 [] [ text "No contacts found..." ]
+                , resetButton model "btn"
+                ]
+
+
+resetButton : Model -> String -> Html Msg
+resetButton model className =
+    let
+        hide =
+            (String.length model.search) < 1
+
+        classes =
+            classList [ ( className, True ), ( "hidden", hide ) ]
+    in
+        a
+            [ classes
+            , onClick Reset
+            ]
+            [ text "Reset search" ]
