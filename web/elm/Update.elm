@@ -2,7 +2,7 @@ module Update exposing (..)
 
 import Types exposing (Msg(..))
 import Model exposing (..)
-import Contacts.Update
+import Contacts.Update exposing (..)
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )

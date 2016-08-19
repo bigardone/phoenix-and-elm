@@ -18,7 +18,7 @@ page : Model -> Html Msg
 page model =
     case model.route of
         ContactsRoute ->
-            Html.App.map ContactsMsg (indexView model)
+            Html.App.map ContactsMsg (indexView model.contacts)
 
         ContactRoute id ->
             showContactView model id
@@ -31,7 +31,7 @@ showContactView : Model -> Int -> Html Msg
 showContactView model id =
     let
         maybeContact =
-            model.entries
+            model.contacts.entries
                 |> List.filter (\c -> c.id == id)
                 |> List.head
     in

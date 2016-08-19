@@ -1,13 +1,11 @@
 module Contacts.View exposing (..)
 
 import Html exposing (..)
-import Html.App
 import Html.Attributes exposing (..)
 import Html.Events exposing (onClick, onInput, onSubmit)
 import String
 import Contacts.Types exposing (..)
-import Model exposing (..)
-import Routing exposing (Route(..))
+import Contacts.Model exposing (..)
 
 
 indexView : Model -> Html Msg
