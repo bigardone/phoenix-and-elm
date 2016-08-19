@@ -1,4 +1,4 @@
-module Models exposing (..)
+module Model exposing (..)
 
 
 type alias Contact =
@@ -22,4 +22,15 @@ type alias Model =
     , total_pages : Int
     , search : String
     , error : String
+    }
+
+
+initialModel : Model
+initialModel =
+    { entries = []
+    , page_number = 1
+    , total_entries = 0
+    , total_pages = 0
+    , search = ""
+    , error = ""
     }

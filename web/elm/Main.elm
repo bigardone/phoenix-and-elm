@@ -1,8 +1,10 @@
 module Main exposing (..)
 
 import Html.App as App
-import ContactList exposing (init, view, update, Msg)
-import Models exposing (..)
+import View exposing (view)
+import Model exposing (..)
+import Update exposing (..)
+import Types exposing (..)
 
 
 -- SUBSCRIPTIONS
