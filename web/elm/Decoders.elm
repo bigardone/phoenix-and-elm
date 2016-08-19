@@ -2,7 +2,7 @@ module Decoders exposing (modelDecoder)
 
 import Json.Decode exposing (int, string, float, Decoder)
 import Json.Decode.Pipeline exposing (decode, required, optional)
-import Model exposing (..)
+import Contacts.Model exposing (..)
 
 
 contactDecoder : Json.Decode.Decoder Contact
