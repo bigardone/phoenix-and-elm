@@ -1,13 +1,7 @@
 module Types exposing (..)
 
-import Model exposing (..)
-import Http
+import Contacts.Types exposing (..)
 
 
 type Msg
-    = Paginate Int
-    | SearchInput String
-    | FormSubmit
-    | FetchSucceed Model
-    | FetchError Http.Error
-    | Reset
+    = ContactsMsg Contacts.Types.Msg

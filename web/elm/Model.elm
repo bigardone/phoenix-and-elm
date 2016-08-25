@@ -1,36 +1,20 @@
 module Model exposing (..)
 
-
-type alias Contact =
-    { id : Int
-    , first_name : String
-    , last_name : String
-    , gender : Int
-    , birth_date : String
-    , location : String
-    , phone_number : String
-    , email : String
-    , headline : String
-    , picture : String
-    }
+import Contacts.Model exposing (..)
+import Contact.Model exposing (..)
+import Routing
 
 
 type alias Model =
-    { entries : List Contact
-    , page_number : Int
-    , total_entries : Int
-    , total_pages : Int
-    , search : String
-    , error : String
+    { contacts : Contacts.Model.Model
+    , contact : Contact.Model.Model
+    , route : Routing.Route
     }
 
 
-initialModel : Model
-initialModel =
-    { entries = []
-    , page_number = 1
-    , total_entries = 0
-    , total_pages = 0
-    , search = ""
-    , error = ""
+initialModel : Routing.Route -> Model
+initialModel route =
+    { contacts = Contacts.Model.initialModel
+    , contact = Contact.Model.initialModel
+    , route = route
     }
