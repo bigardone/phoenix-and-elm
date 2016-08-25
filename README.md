@@ -1,5 +1,8 @@
 # PhoenixAndElm
 
+![Contacts](https://monosnap.com/file/14nD2kWbnvcuBh5a9L9XifX0GQ0OqQ.png)
+
+
 To start your Phoenix app:
 
   * Install dependencies with `mix deps.get`
