@@ -1,0 +1,72 @@
+#contacts_show
+  section
+      header
+        margin-bottom: 1em
+
+  .person-detail
+    background: white
+    margin-bottom: 2rem
+    border-radius: $base-border-radius
+    width: 80%
+    margin: 3em auto
+    color: $base-background-color
+    header
+      clearfix()
+      padding: 1em
+      color: white
+      margin-bottom: 0.5em
+      border-radius: $base-border-radius $base-border-radius 0 0
+      text-align: center
+      h4
+        overflow: hidden
+        text-overflow: ellipsis
+        white-space: nowrap
+        line-height: 3em
+      .avatar
+        margin: 0 auto
+        background-color: #FFF
+        width: 105px
+        height: 105px
+        border-radius: 50%
+        display: block
+        margin-bottom: .5rem
+        border: 3px solid #fff
+
+    .card-body
+      clearfix()
+      padding: 1em
+      border-radius: 0 0 $base-border-radius $base-border-radius
+    .meta
+      font-size: 0.9em
+      li
+        overflow: hidden
+        text-overflow: ellipsis
+        white-space: nowrap
+      .fa
+        font-size: 0.9em
+    .headline
+      height: 3em
+      font-style: italic
+      margin-bottom: 2rem
+    .contact-info
+      clearfix()
+      margin: -1 * 1rem
+      padding: 1rem
+      background: lighten($gray, 10)
+      border-radius: 0 0 $base-border-radius $base-border-radius
+      li
+        float: left
+        width: 50%
+        text-align: center
+        font-size: 1.4em
+      .fa
+        opacity: 0.2
+        font-size: 1.5em
+        display: block
+        line-height: 1.5em
+    &.female
+      header
+        background: lighten($pink, 10)
+    &.male
+      header
+        background: lighten($blue, 10)
