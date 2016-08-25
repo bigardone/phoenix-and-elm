@@ -2,31 +2,24 @@ module Contacts.View exposing (..)
 
 import Html exposing (..)
 import Html.Attributes exposing (..)
-import Html.Events exposing (onClick, onInput, onSubmit)
+import Html.Events exposing (..)
 import String
 import Contacts.Types exposing (..)
 import Contacts.Model exposing (..)
+import Contact.View exposing (..)
 
 
 indexView : Model -> Html Msg
 indexView model =
-    section
+    div
         [ id "home_index" ]
-        [ headerView
-        , filterView model
+        [ filterView model
         , paginationView model.total_pages model.page_number
         , div
             []
             [ listContacts model ]
         , paginationView model.total_pages model.page_number
         ]
-
-
-headerView : Html Msg
-headerView =
-    header
-        []
-        [ h1 [] [ text "Phoenix and Elm: A real use case" ] ]
 
 
 filterView : Model -> Html Msg
@@ -90,7 +83,7 @@ listContacts : Model -> Html Msg
 listContacts model =
     if model.total_entries > 0 then
         model.entries
-            |> List.map contactView
+            |> List.map Contact.View.contactView
             |> div [ class "cards-wrapper" ]
     else
         let
@@ -121,69 +114,3 @@ resetButton model className =
             , onClick Reset
             ]
             [ text "Reset search" ]
-
-
-contactView : Contact -> Html b
-contactView model =
-    let
-        classes =
-            classList [ ( "card", True ), ( "male", model.gender == 0 ), ( "female", model.gender == 1 ) ]
-    in
-        div
-            [ classes ]
-            [ div
-                [ class "inner" ]
-                [ header
-                    []
-                    [ div
-                        [ class "avatar-wrapper" ]
-                        [ img
-                            [ class "avatar"
-                            , src model.picture
-                            ]
-                            []
-                        ]
-                    , div
-                        [ class "info-wrapper" ]
-                        [ h4 [] [ text (full_name model) ]
-                        , ul
-                            [ class "meta" ]
-                            [ li
-                                []
-                                [ i [ class "fa fa-map-marker" ] []
-                                , text model.location
-                                ]
-                            , li
-                                []
-                                [ i [ class "fa fa-birthday-cake" ] []
-                                , text model.birth_date
-                                ]
-                            ]
-                        ]
-                    ]
-                , div
-                    [ class "card-body" ]
-                    [ div
-                        [ class "headline" ]
-                        [ p [] [ text model.headline ] ]
-                    , ul
-                        [ class "contact-info" ]
-                        [ li
-                            []
-                            [ i [ class "fa fa-phone" ] []
-                            , text model.phone_number
-                            ]
-                        , li
-                            []
-                            [ i [ class "fa fa-envelope" ] []
-                            , text model.email
-                            ]
-                        ]
-                    ]
-                ]
-            ]
-
-
-full_name : Contact -> String
-full_name model =
-    model.first_name ++ " " ++ model.last_name

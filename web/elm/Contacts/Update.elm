@@ -1,5 +1,6 @@
 module Contacts.Update exposing (..)
 
+import Navigation
 import Contacts.Types exposing (..)
 import Contacts.Model exposing (..)
 import Commands exposing (..)
@@ -29,3 +30,9 @@ update msg model =
                     { model | search = "" }
             in
                 ( newModel, fetch newModel.search 1 )
+
+        ShowContacts ->
+            ( model, Navigation.newUrl "#" )
+
+        ShowContact id ->
+            ( model, Navigation.newUrl ("#contacts/" ++ (toString id)) )

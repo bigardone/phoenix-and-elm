@@ -3,11 +3,12 @@ module Decoders exposing (modelDecoder)
 import Json.Decode exposing (int, string, float, Decoder)
 import Json.Decode.Pipeline exposing (decode, required, optional)
 import Contacts.Model exposing (..)
+import Contact.Model exposing (..)
 
 
-contactDecoder : Json.Decode.Decoder Contact
+contactDecoder : Json.Decode.Decoder Contact.Model.Model
 contactDecoder =
-    decode Contact
+    decode Contact.Model.Model
         |> required "id" Json.Decode.int
         |> required "first_name" Json.Decode.string
         |> required "last_name" Json.Decode.string
@@ -20,9 +21,9 @@ contactDecoder =
         |> required "picture" Json.Decode.string
 
 
-modelDecoder : Json.Decode.Decoder Model
+modelDecoder : Json.Decode.Decoder Contacts.Model.Model
 modelDecoder =
-    decode Model
+    decode Contacts.Model.Model
         |> required "entries" (Json.Decode.list contactDecoder)
         |> required "page_number" Json.Decode.int
         |> required "total_entries" Json.Decode.int

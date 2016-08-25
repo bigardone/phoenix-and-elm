@@ -11,3 +11,5 @@ type Msg
     | FetchSucceed Model
     | FetchError Http.Error
     | Reset
+    | ShowContacts
+    | ShowContact Int

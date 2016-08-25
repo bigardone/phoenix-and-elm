@@ -1,17 +1,30 @@
 module View exposing (..)
 
 import Html exposing (..)
+import Html.Attributes exposing (id)
 import Html.App
 import Types exposing (..)
 import Model exposing (..)
 import Routing exposing (Route(..))
 import Contacts.View exposing (..)
+import Contact.View exposing (..)
 
 
 view : Model -> Html Msg
 view model =
-    div []
-        [ page model ]
+    section
+        []
+        [ headerView
+        , div []
+            [ page model ]
+        ]
+
+
+headerView : Html Msg
+headerView =
+    header
+        []
+        [ h1 [] [ text "Phoenix and Elm: A real use case" ] ]
 
 
 page : Model -> Html Msg
@@ -37,7 +50,7 @@ showContactView model id =
     in
         case maybeContact of
             Just contact ->
-                Html.App.map ContactsMsg (contactView contact)
+                Html.App.map ContactsMsg (Contact.View.view contact)
 
             Nothing ->
                 notFoundView
