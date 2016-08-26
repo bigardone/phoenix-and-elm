@@ -33,17 +33,14 @@ urlUpdate : Result String Route -> Model -> ( Model, Cmd Msg )
 urlUpdate result model =
     let
         currentRoute =
-            Routing.routeFromResult result
-
-        search =
-            model.contacts.search
-
-        page =
-            model.contacts.page_number
+            Debug.log "route" (Routing.routeFromResult result)
     in
         case currentRoute of
             ContactsRoute ->
-                ( { model | route = currentRoute }, Cmd.map ContactsMsg (fetch search page) )
+                ( { model | route = currentRoute }, Cmd.map ContactsMsg (fetch model.contacts.search model.contacts.page_number) )
+
+            ContactRoute id ->
+                ( { model | route = currentRoute }, Cmd.map ContactMsg (Commands.showContact id) )
 
             _ ->
                 ( { model | route = currentRoute }, Cmd.none )
