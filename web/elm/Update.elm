@@ -2,7 +2,6 @@ module Update exposing (..)
 
 import Types exposing (Msg(..))
 import Model exposing (..)
-import Contact.Model
 import Contacts.Update
 import Contact.Update
 
@@ -15,7 +14,7 @@ update msg model =
                 ( updatedContacts, cmd ) =
                     Contacts.Update.update subMsg model.contacts
             in
-                ( { model | contacts = updatedContacts, contact = Contact.Model.initialModel }, Cmd.map ContactsMsg cmd )
+                ( { model | contacts = updatedContacts, contact = Nothing }, Cmd.map ContactsMsg cmd )
 
         ContactMsg subMsg ->
             let

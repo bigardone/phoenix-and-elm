@@ -5,14 +5,14 @@ import Contact.Model exposing (..)
 import Commands exposing (..)
 
 
-update : Msg -> Model -> ( Model, Cmd Msg )
+update : Msg -> Model -> ( Maybe Model, Cmd Msg )
 update msg model =
     case msg of
         ShowContact id ->
-            ( model, showContact id )
+            ( Just model, showContact id )
 
         ShowContactSucceed newModel ->
-            newModel ! []
+            Just newModel ! []
 
         ShowContactError error ->
-            model ! []
+            Nothing ! []

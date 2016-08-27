@@ -7,7 +7,7 @@ import Routing
 
 type alias Model =
     { contacts : Contacts.Model.Model
-    , contact : Contact.Model.Model
+    , contact : Maybe Contact.Model.Model
     , route : Routing.Route
     }
 
@@ -15,6 +15,6 @@ type alias Model =
 initialModel : Routing.Route -> Model
 initialModel route =
     { contacts = Contacts.Model.initialModel
-    , contact = Contact.Model.initialModel
+    , contact = Nothing
     , route = route
     }
