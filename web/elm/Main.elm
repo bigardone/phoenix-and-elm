@@ -16,12 +16,7 @@ init result =
         currentRoute =
             Routing.routeFromResult result
     in
-        case currentRoute of
-            ContactsRoute ->
-                ( initialModel currentRoute, Cmd.map ContactsMsg (fetch "" 1) )
-
-            _ ->
-                ( initialModel currentRoute, Cmd.none )
+        urlUpdate result (initialModel currentRoute)
 
 
 subscriptions : Model -> Sub Msg
@@ -33,7 +28,7 @@ urlUpdate : Result String Route -> Model -> ( Model, Cmd Msg )
 urlUpdate result model =
     let
         currentRoute =
-            Debug.log "route" (Routing.routeFromResult result)
+            Routing.routeFromResult result
     in
         case currentRoute of
             ContactsRoute ->
