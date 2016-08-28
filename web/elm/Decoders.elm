@@ -1,4 +1,4 @@
-module Decoders exposing (modelDecoder)
+module Decoders exposing (..)
 
 import Json.Decode exposing (int, string, float, Decoder)
 import Json.Decode.Pipeline exposing (decode, required, optional)

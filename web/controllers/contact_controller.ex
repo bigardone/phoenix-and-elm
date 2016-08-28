@@ -13,4 +13,11 @@ defmodule PhoenixAndElm.ContactController do
 
     render conn, page: page, search: search
   end
+
+  def show(conn, %{"id" => id}) do
+    contact = Contact
+    |> Repo.get id
+
+    render conn, contact: contact
+  end
 end

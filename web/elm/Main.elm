@@ -7,6 +7,7 @@ import Update exposing (..)
 import Types exposing (Msg(..))
 import Routing exposing (Route)
 import Commands exposing (fetch)
+import Routing exposing (..)
 
 
 init : Result String Route -> ( Model, Cmd Msg )
@@ -14,14 +15,8 @@ init result =
     let
         currentRoute =
             Routing.routeFromResult result
-
-        search =
-            ""
-
-        page =
-            1
     in
-        ( initialModel currentRoute, Cmd.map ContactsMsg (fetch search page) )
+        urlUpdate result (initialModel currentRoute)
 
 
 subscriptions : Model -> Sub Msg
@@ -35,7 +30,15 @@ urlUpdate result model =
         currentRoute =
             Routing.routeFromResult result
     in
-        ( { model | route = currentRoute }, Cmd.none )
+        case currentRoute of
+            ContactsRoute ->
+                ( { model | route = currentRoute }, Cmd.map ContactsMsg (fetch model.contacts.search model.contacts.page_number) )
+
+            ContactRoute id ->
+                ( { model | route = currentRoute }, Cmd.map ContactMsg (Commands.fetchContact id) )
+
+            _ ->
+                ( { model | route = currentRoute }, Cmd.none )
 
 
 main : Program Never

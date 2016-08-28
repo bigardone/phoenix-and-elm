@@ -1,7 +1,6 @@
 module View exposing (..)
 
 import Html exposing (..)
-import Html.Attributes exposing (id)
 import Html.App
 import Types exposing (..)
 import Model exposing (..)
@@ -34,26 +33,10 @@ page model =
             Html.App.map ContactsMsg (indexView model.contacts)
 
         ContactRoute id ->
-            showContactView model id
+            Html.App.map ContactsMsg (Contact.View.view model.contact)
 
         NotFoundRoute ->
             notFoundView
-
-
-showContactView : Model -> Int -> Html Msg
-showContactView model id =
-    let
-        maybeContact =
-            model.contacts.entries
-                |> List.filter (\c -> c.id == id)
-                |> List.head
-    in
-        case maybeContact of
-            Just contact ->
-                Html.App.map ContactsMsg (Contact.View.view contact)
-
-            Nothing ->
-                notFoundView
 
 
 notFoundView : Html Msg
