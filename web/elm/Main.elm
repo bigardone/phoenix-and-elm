@@ -35,7 +35,7 @@ urlUpdate result model =
                 ( { model | route = currentRoute }, Cmd.map ContactsMsg (fetch model.contacts.search model.contacts.page_number) )
 
             ContactRoute id ->
-                ( { model | route = currentRoute }, Cmd.map ContactMsg (Commands.showContact id) )
+                ( { model | route = currentRoute }, Cmd.map ContactMsg (Commands.fetchContact id) )
 
             _ ->
                 ( { model | route = currentRoute }, Cmd.none )

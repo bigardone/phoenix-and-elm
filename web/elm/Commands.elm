@@ -19,10 +19,10 @@ fetch search page =
         Task.perform FetchError FetchSucceed (Http.get modelDecoder apiUrl)
 
 
-showContact : Int -> Cmd Contact.Types.Msg
-showContact id =
+fetchContact : Int -> Cmd Contact.Types.Msg
+fetchContact id =
     let
         apiUrl =
             Http.url ("http://localhost:4000/api/contacts/" ++ (toString id)) []
     in
-        Task.perform ShowContactError ShowContactSucceed (Http.get contactDecoder apiUrl)
+        Task.perform FetchContactError FetchContactSucceed (Http.get contactDecoder apiUrl)

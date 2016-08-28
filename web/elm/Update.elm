@@ -8,17 +8,33 @@ import Contact.Update
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
-    case msg of
-        ContactsMsg subMsg ->
-            let
-                ( updatedContacts, cmd ) =
-                    Contacts.Update.update subMsg model.contacts
-            in
-                ( { model | contacts = updatedContacts, contact = Nothing }, Cmd.map ContactsMsg cmd )
+    let
+        _ =
+            Debug.log "msg" msg
+    in
+        case msg of
+            ContactsMsg subMsg ->
+                let
+                    ( updatedContacts, cmd ) =
+                        Contacts.Update.update subMsg model.contacts
+                in
+                    ( { model
+                        | contacts = updatedContacts
+                        , contact = Nothing
+                      }
+                    , Cmd.map ContactsMsg cmd
+                    )
 
-        ContactMsg subMsg ->
-            let
-                ( updatedContact, cmd ) =
-                    Contact.Update.update subMsg model.contact
-            in
-                ( { model | contact = updatedContact }, Cmd.map ContactMsg cmd )
+            ContactMsg subMsg ->
+                case model.contact of
+                    Just contact ->
+                        let
+                            ( updatedContact, cmd ) =
+                                Contact.Update.update subMsg contact
+                        in
+                            ( { model | contact = updatedContact }
+                            , Cmd.map ContactMsg cmd
+                            )
+
+                    Nothing ->
+                        ( model, Cmd.none )

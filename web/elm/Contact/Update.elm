@@ -8,11 +8,11 @@ import Commands exposing (..)
 update : Msg -> Model -> ( Maybe Model, Cmd Msg )
 update msg model =
     case msg of
-        ShowContact id ->
-            ( Just model, showContact id )
+        FetchContact id ->
+            ( Just model, fetchContact id )
 
-        ShowContactSucceed newModel ->
+        FetchContactSucceed newModel ->
             Just newModel ! []
 
-        ShowContactError error ->
+        FetchContactError error ->
             Nothing ! []
