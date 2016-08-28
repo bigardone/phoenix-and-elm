@@ -7,30 +7,25 @@ import Contact.Model exposing (..)
 import Contacts.Types exposing (..)
 
 
-view : Maybe Model -> Html Msg
+view : Model -> Html Msg
 view model =
-    case model of
-        Nothing ->
-            div [] []
-
-        Just contact ->
-            let
-                classes =
-                    classList [ ( "person-detail", True ), ( "male", contact.gender == 0 ), ( "female", contact.gender == 1 ) ]
-            in
-                div
-                    [ id "contacts_show" ]
-                    [ header []
-                        [ h3 []
-                            [ text "Person detail" ]
-                        ]
-                    , a
-                        [ onClick ShowContacts ]
-                        [ text "← Back to people list" ]
-                    , div
-                        [ classes ]
-                        [ contactView contact ]
-                    ]
+    let
+        classes =
+            classList [ ( "person-detail", True ), ( "male", model.gender == 0 ), ( "female", model.gender == 1 ) ]
+    in
+        div
+            [ id "contacts_show" ]
+            [ header []
+                [ h3 []
+                    [ text "Person detail" ]
+                ]
+            , a
+                [ onClick ShowContacts ]
+                [ text "← Back to people list" ]
+            , div
+                [ classes ]
+                [ contactView model ]
+            ]
 
 
 contactView : Model -> Html Msg

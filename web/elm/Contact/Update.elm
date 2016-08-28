@@ -5,14 +5,14 @@ import Contact.Model exposing (..)
 import Commands exposing (..)
 
 
-update : Msg -> Model -> ( Maybe Model, Cmd Msg )
+update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
         FetchContact id ->
-            ( Just model, fetchContact id )
+            ( model, fetchContact id )
 
         FetchContactSucceed newModel ->
-            Just newModel ! []
+            newModel ! []
 
         FetchContactError error ->
-            Nothing ! []
+            model ! []

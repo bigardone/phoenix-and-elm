@@ -13,3 +13,18 @@ type alias Model =
     , headline : String
     , picture : String
     }
+
+
+initialModel : Model
+initialModel =
+    { id = -1
+    , first_name = ""
+    , last_name = ""
+    , gender = 0
+    , birth_date = ""
+    , location = ""
+    , phone_number = ""
+    , email = ""
+    , headline = ""
+    , picture = ""
+    }
