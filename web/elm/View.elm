@@ -1,6 +1,7 @@
 module View exposing (..)
 
 import Html exposing (..)
+import Html.Attributes exposing (..)
 import Html.App
 import Types exposing (..)
 import Model exposing (..)
@@ -41,5 +42,13 @@ page model =
 
 notFoundView : Html Msg
 notFoundView =
-    div []
-        [ text "Not found" ]
+    div
+        [ id "error_index" ]
+        [ div
+            [ class "warning" ]
+            [ span
+                [ class "fa-stack" ]
+                [ i [ class "fa fa-meh-o fa-stack-2x" ] [] ]
+            , h4 [] [ text "404" ]
+            ]
+        ]
