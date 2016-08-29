@@ -16,7 +16,7 @@ fetch search page =
                 , ( "page", (toString page) )
                 ]
     in
-        Task.perform FetchError FetchSucceed (Http.get modelDecoder apiUrl)
+        Task.perform FetchError FetchSucceed (Http.get contactsModelDecoder apiUrl)
 
 
 fetchContact : Int -> Cmd Contact.Types.Msg
@@ -25,4 +25,4 @@ fetchContact id =
         apiUrl =
             Http.url ("http://localhost:4000/api/contacts/" ++ (toString id)) []
     in
-        Task.perform FetchContactError FetchContactSucceed (Http.get contactDecoder apiUrl)
+        Task.perform FetchContactError FetchContactSucceed (Http.get contactModelDecoder apiUrl)

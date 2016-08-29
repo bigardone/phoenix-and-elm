@@ -6,10 +6,10 @@ import Contacts.Model exposing (..)
 import Contact.Model exposing (..)
 
 
-contactDecoder : Decode.Decoder Contact.Model.Model
+contactDecoder : Decode.Decoder Contact.Model.Contact
 contactDecoder =
-    succeed Contact.Model.Model
-        |: (maybe ("id" := int))
+    succeed Contact.Model.Contact
+        |: ("id" := int)
         |: ("first_name" := string)
         |: ("last_name" := string)
         |: ("gender" := int)
@@ -21,8 +21,15 @@ contactDecoder =
         |: ("picture" := string)
 
 
-modelDecoder : Decode.Decoder Contacts.Model.Model
-modelDecoder =
+contactModelDecoder : Decode.Decoder Contact.Model.Model
+contactModelDecoder =
+    succeed Contact.Model.Model
+        |: (maybe ("contact" := contactDecoder))
+        |: (maybe ("error" := string))
+
+
+contactsModelDecoder : Decode.Decoder Contacts.Model.Model
+contactsModelDecoder =
     succeed Contacts.Model.Model
         |: ("entries" := (list contactDecoder))
         |: ("page_number" := int)

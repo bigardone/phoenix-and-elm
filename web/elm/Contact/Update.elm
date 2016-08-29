@@ -9,15 +9,10 @@ update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
         FetchContact id ->
-            case id of
-                Just contactId ->
-                    ( model, fetchContact contactId )
-
-                Nothing ->
-                    model ! []
+            ( model, fetchContact id )
 
         FetchContactSucceed newModel ->
             newModel ! []
 
         FetchContactError error ->
-            model ! []
+            { model | error = Just (toString error) } ! []

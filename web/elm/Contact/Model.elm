@@ -1,8 +1,8 @@
 module Contact.Model exposing (..)
 
 
-type alias Model =
-    { id : Maybe Int
+type alias Contact =
+    { id : Int
     , first_name : String
     , last_name : String
     , gender : Int
@@ -15,16 +15,14 @@ type alias Model =
     }
 
 
+type alias Model =
+    { contact : Maybe Contact
+    , error : Maybe String
+    }
+
+
 initialModel : Model
 initialModel =
-    { id = Nothing
-    , first_name = ""
-    , last_name = ""
-    , gender = 0
-    , birth_date = ""
-    , location = ""
-    , phone_number = ""
-    , email = ""
-    , headline = ""
-    , picture = ""
+    { contact = Nothing
+    , error = Nothing
     }

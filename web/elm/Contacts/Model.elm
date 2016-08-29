@@ -4,7 +4,7 @@ import Contact.Model as Contact
 
 
 type alias Model =
-    { entries : List Contact.Model
+    { entries : List Contact.Contact
     , page_number : Int
     , total_entries : Int
     , total_pages : Int

@@ -22,7 +22,7 @@ defmodule PhoenixAndElm.ContactController do
       nil ->
         conn
         |> put_status(:not_found)
-        |> json(%{reason: "Contact nof found"})
+        |> json(%{error: "Contact nof found"})
       _ ->
         render conn, contact: contact
     end
