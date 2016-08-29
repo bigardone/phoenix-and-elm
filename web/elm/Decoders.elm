@@ -1,32 +1,32 @@
 module Decoders exposing (..)
 
-import Json.Decode exposing (int, string, float, Decoder)
-import Json.Decode.Pipeline exposing (decode, required, optional)
+import Json.Decode as Decode exposing (succeed, int, string, float, list, Decoder, (:=), maybe, oneOf)
+import Json.Decode.Extra exposing ((|:))
 import Contacts.Model exposing (..)
 import Contact.Model exposing (..)
 
 
-contactDecoder : Json.Decode.Decoder Contact.Model.Model
+contactDecoder : Decode.Decoder Contact.Model.Model
 contactDecoder =
-    decode Contact.Model.Model
-        |> required "id" Json.Decode.int
-        |> required "first_name" Json.Decode.string
-        |> required "last_name" Json.Decode.string
-        |> required "gender" Json.Decode.int
-        |> required "birth_date" Json.Decode.string
-        |> required "location" Json.Decode.string
-        |> required "phone_number" Json.Decode.string
-        |> required "email" Json.Decode.string
-        |> required "headline" Json.Decode.string
-        |> required "picture" Json.Decode.string
+    succeed Contact.Model.Model
+        |: (maybe ("id" := int))
+        |: ("first_name" := string)
+        |: ("last_name" := string)
+        |: ("gender" := int)
+        |: ("birth_date" := string)
+        |: ("location" := string)
+        |: ("phone_number" := string)
+        |: ("email" := string)
+        |: ("headline" := string)
+        |: ("picture" := string)
 
 
-modelDecoder : Json.Decode.Decoder Contacts.Model.Model
+modelDecoder : Decode.Decoder Contacts.Model.Model
 modelDecoder =
-    decode Contacts.Model.Model
-        |> required "entries" (Json.Decode.list contactDecoder)
-        |> required "page_number" Json.Decode.int
-        |> required "total_entries" Json.Decode.int
-        |> required "total_pages" Json.Decode.int
-        |> optional "search" Json.Decode.string ""
-        |> optional "error" Json.Decode.string ""
+    succeed Contacts.Model.Model
+        |: ("entries" := (list contactDecoder))
+        |: ("page_number" := int)
+        |: ("total_entries" := int)
+        |: ("total_pages" := int)
+        |: (oneOf [ "search" := string, succeed "" ])
+        |: (oneOf [ "error" := string, succeed "" ])
