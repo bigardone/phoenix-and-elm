@@ -11,7 +11,7 @@ fetch : String -> Int -> Cmd Contacts.Types.Msg
 fetch search page =
     let
         apiUrl =
-            Http.url "http://localhost:4000/api/contacts"
+            Http.url "/api/contacts"
                 [ ( "search", search )
                 , ( "page", (toString page) )
                 ]
@@ -23,6 +23,6 @@ fetchContact : Int -> Cmd Contact.Types.Msg
 fetchContact id =
     let
         apiUrl =
-            Http.url ("http://localhost:4000/api/contacts/" ++ (toString id)) []
+            Http.url ("/api/contacts/" ++ (toString id)) []
     in
         Task.perform FetchContactError FetchContactSucceed (Http.get contactModelDecoder apiUrl)
