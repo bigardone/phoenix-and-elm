@@ -38,7 +38,7 @@ defmodule PhoenixAndElm.Mixfile do
      {:phoenix_live_reload, "~> 1.0", only: :dev},
      {:gettext, "~> 0.11"},
      {:cowboy, "~> 1.0"},
-     {:faker, git: "git@github.com:bigardone/faker.git", branch: "master", only: [:test, :dev]},
+     {:faker, git: "https://github.com/bigardone/faker", branch: "master"},
      {:scrivener_ecto, "~> 1.0"}]
   end
 
