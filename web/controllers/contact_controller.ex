@@ -16,7 +16,7 @@ defmodule PhoenixAndElm.ContactController do
 
   def show(conn, %{"id" => id}) do
     contact = Contact
-    |> Repo.get id
+    |> Repo.get(id)
 
     case contact do
       nil ->
