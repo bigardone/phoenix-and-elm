@@ -10,6 +10,7 @@
     <title>Hello PhoenixAndElm!</title>
     <link href="https://fonts.googleapis.com/css?family=Fjalla+One|Average+Sans" rel="stylesheet" type="text/css"}/>
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>"/>
+    <link id="favicon" rel="icon" type="image/png" href="<%= static_path(@conn, "/images/favicon.png") %>"/>
   </head>
 
   <body>
