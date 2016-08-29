@@ -4,6 +4,7 @@ import Navigation
 import Contacts.Types exposing (..)
 import Contacts.Model exposing (..)
 import Commands exposing (..)
+import Routing exposing (toPath, Route(..))
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -35,7 +36,7 @@ update msg model =
                 ( newModel, fetch newModel.search 1 )
 
         ShowContacts ->
-            ( model, Navigation.newUrl "#" )
+            ( model, Navigation.newUrl (toPath ContactsRoute) )
 
         ShowContact id ->
-            ( model, Navigation.newUrl ("#contacts/" ++ (toString id)) )
+            ( model, Navigation.newUrl (toPath (ContactRoute id)) )

@@ -18,6 +18,13 @@ defmodule PhoenixAndElm.ContactController do
     contact = Contact
     |> Repo.get id
 
-    render conn, contact: contact
+    case contact do
+      nil ->
+        conn
+        |> put_status(:not_found)
+        |> json(%{reason: "Contact nof found"})
+      _ ->
+        render conn, contact: contact
+    end
   end
 end

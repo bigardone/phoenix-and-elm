@@ -11,20 +11,32 @@ type Route
     | NotFoundRoute
 
 
-matchers : Parser (Route -> a) a
-matchers =
+toPath : Route -> String
+toPath route =
+    case route of
+        ContactsRoute ->
+            "/"
+
+        ContactRoute id ->
+            "/contacts/" ++ toString id
+
+        NotFoundRoute ->
+            "/not-found"
+
+
+routeParser : Parser (Route -> a) a
+routeParser =
     oneOf
         [ format ContactsRoute (s "")
         , format ContactRoute (s "contacts" </> int)
-        , format ContactsRoute (s "contacts")
         ]
 
 
 hashParser : Navigation.Location -> Result String Route
 hashParser location =
-    location.hash
+    location.pathname
         |> String.dropLeft 1
-        |> parse identity matchers
+        |> parse identity routeParser
 
 
 parser : Navigation.Parser (Result String Route)
