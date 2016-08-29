@@ -83,7 +83,7 @@ listContacts : Model -> Html Msg
 listContacts model =
     if model.total_entries > 0 then
         model.entries
-            |> List.map Contact.View.contactView
+            |> List.map (Contact.View.contactView True)
             |> div [ class "cards-wrapper" ]
     else
         let

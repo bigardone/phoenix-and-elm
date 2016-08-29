@@ -15,7 +15,7 @@ update msg model =
                 ( updatedContacts, cmd ) =
                     Contacts.Update.update subMsg model.contacts
             in
-                ( { model | contacts = updatedContacts, contact = Contact.Model.initialModel }
+                ( { model | contacts = updatedContacts }
                 , Cmd.map ContactsMsg cmd
                 )
 

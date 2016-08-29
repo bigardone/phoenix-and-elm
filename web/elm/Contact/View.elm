@@ -29,12 +29,12 @@ view model =
                         [ text "← Back to people list" ]
                     , div
                         [ classes ]
-                        [ contactView model ]
+                        [ contactView False model ]
                     ]
 
 
-contactView : Model -> Html Msg
-contactView model =
+contactView : Bool -> Model -> Html Msg
+contactView clickable model =
     case model.id of
         Nothing ->
             div [] []
@@ -42,23 +42,36 @@ contactView model =
         Just contactId ->
             let
                 classes =
-                    classList [ ( "card", True ), ( "male", model.gender == 0 ), ( "female", model.gender == 1 ) ]
+                    classList
+                        [ ( "card", True )
+                        , ( "clickable", clickable )
+                        , ( "male", model.gender == 0 )
+                        , ( "female", model.gender == 1 )
+                        ]
+
+                headerClick =
+                    case clickable of
+                        True ->
+                            ShowContact contactId
+
+                        False ->
+                            NoOp
             in
                 div
-                    [ classes ]
+                    [ classes
+                    , onClick headerClick
+                    ]
                     [ div
                         [ class "inner" ]
                         [ header
                             []
                             [ div
                                 [ class "avatar-wrapper" ]
-                                [ a [ onClick (ShowContact contactId) ]
-                                    [ img
-                                        [ class "avatar"
-                                        , src model.picture
-                                        ]
-                                        []
+                                [ img
+                                    [ class "avatar"
+                                    , src model.picture
                                     ]
+                                    []
                                 ]
                             , div
                                 [ class "info-wrapper" ]

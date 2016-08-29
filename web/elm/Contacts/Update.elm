@@ -9,6 +9,9 @@ import Commands exposing (..)
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
+        NoOp ->
+            model ! []
+
         Paginate pageNumber ->
             ( model, fetch model.search pageNumber )
 

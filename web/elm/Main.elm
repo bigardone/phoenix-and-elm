@@ -3,6 +3,7 @@ module Main exposing (..)
 import Navigation
 import View exposing (view)
 import Model exposing (..)
+import Contact.Model
 import Update exposing (..)
 import Types exposing (Msg(..))
 import Routing exposing (Route)
@@ -32,7 +33,7 @@ urlUpdate result model =
     in
         case currentRoute of
             ContactsRoute ->
-                ( { model | route = currentRoute }, Cmd.map ContactsMsg (fetch model.contacts.search model.contacts.page_number) )
+                ( { model | route = currentRoute, contact = Contact.Model.initialModel }, Cmd.map ContactsMsg (fetch model.contacts.search model.contacts.page_number) )
 
             ContactRoute id ->
                 ( { model | route = currentRoute }, Cmd.map ContactMsg (Commands.fetchContact id) )

@@ -5,7 +5,8 @@ import Http
 
 
 type Msg
-    = Paginate Int
+    = NoOp
+    | Paginate Int
     | SearchInput String
     | FormSubmit
     | FetchSucceed Model
