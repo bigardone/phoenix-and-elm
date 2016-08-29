@@ -5,6 +5,6 @@ import Http
 
 
 type Msg
-    = FetchContact Int
+    = FetchContact (Maybe Int)
     | FetchContactSucceed Model
     | FetchContactError Http.Error

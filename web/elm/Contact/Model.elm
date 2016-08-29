@@ -2,7 +2,7 @@ module Contact.Model exposing (..)
 
 
 type alias Model =
-    { id : Int
+    { id : Maybe Int
     , first_name : String
     , last_name : String
     , gender : Int
@@ -17,7 +17,7 @@ type alias Model =
 
 initialModel : Model
 initialModel =
-    { id = -1
+    { id = Nothing
     , first_name = ""
     , last_name = ""
     , gender = 0

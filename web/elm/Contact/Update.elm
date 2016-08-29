@@ -9,7 +9,12 @@ update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
         FetchContact id ->
-            ( model, fetchContact id )
+            case id of
+                Just contactId ->
+                    ( model, fetchContact contactId )
+
+                Nothing ->
+                    model ! []
 
         FetchContactSucceed newModel ->
             newModel ! []
