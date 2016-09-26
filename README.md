@@ -5,6 +5,9 @@
 ## Phoenix Channels version
 https://github.com/bigardone/phoenix-and-elm/tree/phoenix-channels
 
+## Live demo
+https://phoenix-and-elm.herokuapp.com/
+
 ## Instructions
 To start your Phoenix app:
 
