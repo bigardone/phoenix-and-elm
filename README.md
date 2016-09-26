@@ -5,6 +5,7 @@
 ## Phoenix Channels version
 https://github.com/bigardone/phoenix-and-elm/tree/phoenix-channels
 
+## Instructions
 To start your Phoenix app:
 
   * Install dependencies with `mix deps.get`
