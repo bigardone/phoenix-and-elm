@@ -17,13 +17,13 @@ defmodule PhoenixAndElm.Router do
   scope "/api", PhoenixAndElm do
     pipe_through :api
 
-    resources "contacts", ContactController, only: [:index, :show]
+    resources "/contacts", ContactController, only: [:index, :show]
   end
 
    scope "/", PhoenixAndElm do
     pipe_through :browser # Use the default browser stack
 
     get "/", PageController, :index
-    get "*path", PageController, :index
+    get "/*path", PageController, :index
   end
 end
