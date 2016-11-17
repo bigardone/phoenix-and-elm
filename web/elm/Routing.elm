@@ -1,8 +1,7 @@
 module Routing exposing (..)
 
-import String
-import Navigation
 import UrlParser exposing (..)
+import Navigation
 
 
 type Route
@@ -24,31 +23,19 @@ toPath route =
             "/not-found"
 
 
-routeParser : Parser (Route -> a) a
-routeParser =
+matchers : Parser (Route -> a) a
+matchers =
     oneOf
-        [ format ContactsRoute (s "")
-        , format ContactRoute (s "contacts" </> int)
+        [ map ContactsRoute (s "")
+        , map ContactRoute (s "contacts" </> int)
         ]
 
 
-hashParser : Navigation.Location -> Result String Route
-hashParser location =
-    location.pathname
-        |> String.dropLeft 1
-        |> parse identity routeParser
-
-
-parser : Navigation.Parser (Result String Route)
-parser =
-    Navigation.makeParser hashParser
-
-
-routeFromResult : Result String Route -> Route
-routeFromResult result =
-    case result of
-        Ok route ->
+parse : Navigation.Location -> Route
+parse location =
+    case UrlParser.parsePath matchers location of
+        Just route ->
             route
 
-        Err string ->
+        Nothing ->
             NotFoundRoute

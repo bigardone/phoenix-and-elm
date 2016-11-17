@@ -9,8 +9,7 @@ type Msg
     | Paginate Int
     | SearchInput String
     | FormSubmit
-    | FetchSucceed Model
-    | FetchError Http.Error
+    | FetchResult (Result Http.Error Model)
     | Reset
     | ShowContacts
     | ShowContact Int

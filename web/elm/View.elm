@@ -2,7 +2,6 @@ module View exposing (..)
 
 import Html exposing (..)
 import Html.Attributes exposing (..)
-import Html.App
 import Types exposing (..)
 import Model exposing (..)
 import Routing exposing (Route(..))
@@ -31,10 +30,10 @@ page : Model -> Html Msg
 page model =
     case model.route of
         ContactsRoute ->
-            Html.App.map ContactsMsg (indexView model.contacts)
+            Html.map ContactsMsg (indexView model.contacts)
 
         ContactRoute id ->
-            Html.App.map ContactsMsg (Contact.View.view model.contact)
+            Html.map ContactsMsg (Contact.View.view model.contact)
 
         NotFoundRoute ->
             notFoundView

@@ -11,8 +11,8 @@ update msg model =
         FetchContact id ->
             ( model, fetchContact id )
 
-        FetchContactSucceed newModel ->
+        FetchContactResult (Ok newModel) ->
             newModel ! []
 
-        FetchContactError error ->
+        FetchContactResult (Err error) ->
             { model | error = Just (toString error) } ! []

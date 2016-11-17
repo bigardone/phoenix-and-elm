@@ -22,10 +22,10 @@ update msg model =
         SearchInput search ->
             { model | search = search } ! []
 
-        FetchSucceed newModel ->
+        FetchResult (Ok newModel) ->
             newModel ! []
 
-        FetchError error ->
+        FetchResult (Err error) ->
             { model | error = (toString error) } ! []
 
         Reset ->

@@ -45,7 +45,7 @@ filterView model =
                     [ onSubmit FormSubmit ]
                     [ resetButton model "reset"
                     , input
-                        [ type' "search"
+                        [ type_ "search"
                         , placeholder "Search contacts..."
                         , onInput SearchInput
                         , value model.search
@@ -58,7 +58,7 @@ filterView model =
 
 paginationView : Int -> Int -> Html Msg
 paginationView totalPages pageNumber =
-    [1..totalPages]
+    List.range 1 totalPages
         |> List.map (paginationLink pageNumber)
         |> ul [ class "pagination" ]
 
