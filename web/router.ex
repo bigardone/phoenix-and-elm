@@ -20,7 +20,7 @@ defmodule PhoenixAndElm.Router do
     resources "/contacts", ContactController, only: [:index, :show]
   end
 
-   scope "/", PhoenixAndElm do
+  scope "/", PhoenixAndElm do
     pipe_through :browser # Use the default browser stack
 
     get "/", PageController, :index
