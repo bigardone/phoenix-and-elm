@@ -16,12 +16,17 @@ view model =
         ( Just contact, Nothing ) ->
             let
                 classes =
-                    classList [ ( "person-detail", True ), ( "male", contact.gender == 0 ), ( "female", contact.gender == 1 ) ]
+                    classList
+                        [ ( "person-detail", True )
+                        , ( "male", contact.gender == 0 )
+                        , ( "female", contact.gender == 1 )
+                        ]
             in
                 div
                     [ id "contacts_show" ]
                     [ header []
-                        [ h3 []
+                        [ h3
+                            []
                             [ text "Person detail" ]
                         ]
                     , a
@@ -73,17 +78,23 @@ contactView clickable model =
                         ]
                     , div
                         [ class "info-wrapper" ]
-                        [ h4 [] [ text (full_name model) ]
+                        [ h4
+                            []
+                            [ text (full_name model) ]
                         , ul
                             [ class "meta" ]
                             [ li
                                 []
-                                [ i [ class "fa fa-map-marker" ] []
+                                [ i
+                                    [ class "fa fa-map-marker" ]
+                                    []
                                 , text model.location
                                 ]
                             , li
                                 []
-                                [ i [ class "fa fa-birthday-cake" ] []
+                                [ i
+                                    [ class "fa fa-birthday-cake" ]
+                                    []
                                 , text model.birth_date
                                 ]
                             ]
@@ -98,12 +109,16 @@ contactView clickable model =
                         [ class "contact-info" ]
                         [ li
                             []
-                            [ i [ class "fa fa-phone" ] []
+                            [ i
+                                [ class "fa fa-phone" ]
+                                []
                             , text model.phone_number
                             ]
                         , li
                             []
-                            [ i [ class "fa fa-envelope" ] []
+                            [ i
+                                [ class "fa fa-envelope" ]
+                                []
                             , text model.email
                             ]
                         ]
@@ -120,8 +135,13 @@ errorView error =
             [ class "warning" ]
             [ span
                 [ class "fa-stack" ]
-                [ i [ class "fa fa-meh-o fa-stack-2x" ] [] ]
-            , h4 [] [ text error ]
+                [ i
+                    [ class "fa fa-meh-o fa-stack-2x" ]
+                    []
+                ]
+            , h4
+                []
+                [ text error ]
             , a
                 [ onClick ShowContacts ]
                 [ text "← Back to people list" ]

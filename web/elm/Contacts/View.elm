@@ -17,7 +17,7 @@ indexView model =
         , paginationView model.total_pages model.page_number
         , div
             []
-            [ listContacts model ]
+            [ contactsList model ]
         , paginationView model.total_pages model.page_number
         ]
 
@@ -32,13 +32,19 @@ filterView model =
                 "contacts"
 
         headerText =
-            (toString model.total_entries) ++ " " ++ contactWord ++ " found"
+            if model.total_entries == 0 then
+                ""
+            else
+                (toString model.total_entries) ++ " " ++ contactWord ++ " found"
     in
         div
             [ class "filter-wrapper" ]
             [ div
                 [ class "overview-wrapper" ]
-                [ h3 [] [ text headerText ] ]
+                [ h3
+                    []
+                    [ text headerText ]
+                ]
             , div
                 [ class "form-wrapper" ]
                 [ Html.form
@@ -79,8 +85,8 @@ paginationLink currentPage page =
             ]
 
 
-listContacts : Model -> Html Msg
-listContacts model =
+contactsList : Model -> Html Msg
+contactsList model =
     if model.total_entries > 0 then
         model.entries
             |> List.map (Contact.View.contactView True)
@@ -88,14 +94,19 @@ listContacts model =
     else
         let
             classes =
-                classList [ ( "warning", True ), ( "hidden", String.length model.search == 0 ) ]
+                classList
+                    [ ( "warning", True )
+                    , ( "hidden", String.length model.search == 0 )
+                    ]
         in
             div
                 [ classes ]
                 [ span
                     [ class "fa-stack" ]
                     [ i [ class "fa fa-meh-o fa-stack-2x" ] [] ]
-                , h4 [] [ text "No contacts found..." ]
+                , h4
+                    []
+                    [ text "No contacts found..." ]
                 , resetButton model "btn"
                 ]
 
@@ -107,7 +118,10 @@ resetButton model className =
             (String.length model.search) < 1
 
         classes =
-            classList [ ( className, True ), ( "hidden", hide ) ]
+            classList
+                [ ( className, True )
+                , ( "hidden", hide )
+                ]
     in
         a
             [ classes

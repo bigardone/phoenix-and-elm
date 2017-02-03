@@ -23,17 +23,20 @@ headerView : Html Msg
 headerView =
     header
         []
-        [ h1 [] [ text "Phoenix and Elm: A real use case" ] ]
+        [ h1
+            []
+            [ text "Phoenix and Elm: A real use case" ]
+        ]
 
 
 page : Model -> Html Msg
 page model =
     case model.route of
         ContactsRoute ->
-            Html.map ContactsMsg (indexView model.contacts)
+            Html.map ContactsMsg <| indexView model.contacts
 
         ContactRoute id ->
-            Html.map ContactsMsg (Contact.View.view model.contact)
+            Html.map ContactsMsg <| Contact.View.view model.contact
 
         NotFoundRoute ->
             notFoundView
@@ -47,7 +50,12 @@ notFoundView =
             [ class "warning" ]
             [ span
                 [ class "fa-stack" ]
-                [ i [ class "fa fa-meh-o fa-stack-2x" ] [] ]
-            , h4 [] [ text "404" ]
+                [ i
+                    [ class "fa fa-meh-o fa-stack-2x" ]
+                    []
+                ]
+            , h4
+                []
+                [ text "404" ]
             ]
         ]

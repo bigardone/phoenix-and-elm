@@ -12,7 +12,7 @@ fetch search page =
         apiUrl =
             "/api/contacts?" ++ "search=" ++ search ++ "&page=" ++ (toString page)
     in
-        Http.send FetchResult (Http.get apiUrl contactsModelDecoder)
+        Http.send FetchResult <| Http.get apiUrl contactsModelDecoder
 
 
 fetchContact : Int -> Cmd Contact.Types.Msg
@@ -21,4 +21,4 @@ fetchContact id =
         apiUrl =
             "/api/contacts/" ++ (toString id)
     in
-        Http.send FetchContactResult (Http.get apiUrl contactModelDecoder)
+        Http.send FetchContactResult <| Http.get apiUrl contactModelDecoder
