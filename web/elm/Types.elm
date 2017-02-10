@@ -1,11 +1,11 @@
 module Types exposing (..)
 
-import Navigation
-import Contacts.Types exposing (..)
 import Contact.Types exposing (..)
+import ContactList.Types exposing (..)
+import Navigation
 
 
 type Msg
     = UrlChange Navigation.Location
-    | ContactsMsg Contacts.Types.Msg
+    | ContactListMsg ContactList.Types.Msg
     | ContactMsg Contact.Types.Msg

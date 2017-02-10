@@ -1,6 +1,6 @@
-module Contacts.Types exposing (..)
+module ContactList.Types exposing (..)
 
-import Contacts.Model exposing (..)
+import ContactList.Model exposing (ContactList)
 import Http
 
 
@@ -9,7 +9,7 @@ type Msg
     | Paginate Int
     | SearchInput String
     | FormSubmit
-    | FetchResult (Result Http.Error Model)
+    | FetchResult (Result Http.Error ContactList)
     | Reset
     | ShowContacts
     | ShowContact Int

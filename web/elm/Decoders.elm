@@ -1,14 +1,15 @@
 module Decoders exposing (..)
 
-import Json.Decode as Decode exposing (..)
-import Json.Decode.Extra exposing ((|:))
-import Contacts.Model exposing (..)
 import Contact.Model exposing (..)
+import ContactList.Model exposing (ContactList)
+import Json.Decode as JD exposing (..)
+import Json.Decode.Extra exposing ((|:))
 
 
-contactDecoder : Decode.Decoder Contact.Model.Contact
+contactDecoder : JD.Decoder Contact
 contactDecoder =
-    succeed Contact.Model.Contact
+    succeed
+        Contact
         |: (field "id" int)
         |: (field "first_name" string)
         |: (field "last_name" string)
@@ -21,16 +22,18 @@ contactDecoder =
         |: (field "picture" string)
 
 
-contactModelDecoder : Decode.Decoder Contact.Model.Model
+contactModelDecoder : JD.Decoder Contact.Model.Model
 contactModelDecoder =
-    succeed Contact.Model.Model
+    succeed
+        Contact.Model.Model
         |: (maybe (field "contact" contactDecoder))
         |: (maybe (field "error" string))
 
 
-contactsModelDecoder : Decode.Decoder Contacts.Model.Model
+contactsModelDecoder : JD.Decoder ContactList
 contactsModelDecoder =
-    succeed Contacts.Model.Model
+    succeed
+        ContactList
         |: (field "entries" (list contactDecoder))
         |: (field "page_number" int)
         |: (field "total_entries" int)

@@ -1,15 +1,15 @@
-module Contacts.View exposing (..)
+module ContactList.View exposing (..)
 
+import Contact.View exposing (..)
+import ContactList.Model exposing (ContactList)
+import ContactList.Types exposing (..)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import String
-import Contacts.Types exposing (..)
-import Contacts.Model exposing (..)
-import Contact.View exposing (..)
 
 
-indexView : Model -> Html Msg
+indexView : ContactList -> Html Msg
 indexView model =
     div
         [ id "home_index" ]
@@ -22,7 +22,7 @@ indexView model =
         ]
 
 
-filterView : Model -> Html Msg
+filterView : ContactList -> Html Msg
 filterView model =
     let
         contactWord =
@@ -85,7 +85,7 @@ paginationLink currentPage page =
             ]
 
 
-contactsList : Model -> Html Msg
+contactsList : ContactList -> Html Msg
 contactsList model =
     if model.total_entries > 0 then
         model.entries
@@ -111,7 +111,7 @@ contactsList model =
                 ]
 
 
-resetButton : Model -> String -> Html Msg
+resetButton : ContactList -> String -> Html Msg
 resetButton model className =
     let
         hide =

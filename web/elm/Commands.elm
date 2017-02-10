@@ -1,12 +1,12 @@
 module Commands exposing (..)
 
-import Http
-import Decoders exposing (..)
-import Contacts.Types exposing (Msg(..))
 import Contact.Types exposing (Msg(..))
+import ContactList.Types exposing (Msg(..))
+import Decoders exposing (..)
+import Http
 
 
-fetch : String -> Int -> Cmd Contacts.Types.Msg
+fetch : String -> Int -> Cmd ContactList.Types.Msg
 fetch search page =
     let
         apiUrl =

@@ -1,10 +1,10 @@
 module Contact.View exposing (..)
 
+import Contact.Model exposing (..)
+import ContactList.Types exposing (..)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
-import Contact.Model exposing (..)
-import Contacts.Types exposing (..)
 
 
 view : Model -> Html Msg

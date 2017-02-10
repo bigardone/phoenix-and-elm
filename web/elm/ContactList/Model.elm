@@ -1,10 +1,10 @@
-module Contacts.Model exposing (..)
+module ContactList.Model exposing (..)
 
-import Contact.Model as Contact
+import Contact.Model exposing (Contact)
 
 
-type alias Model =
-    { entries : List Contact.Contact
+type alias ContactList =
+    { entries : List Contact
     , page_number : Int
     , total_entries : Int
     , total_pages : Int
@@ -13,7 +13,7 @@ type alias Model =
     }
 
 
-initialModel : Model
+initialModel : ContactList
 initialModel =
     { entries = []
     , page_number = 1

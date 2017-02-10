@@ -1,13 +1,13 @@
-module Contacts.Update exposing (..)
+module ContactList.Update exposing (..)
 
-import Navigation
-import Contacts.Types exposing (..)
-import Contacts.Model exposing (..)
 import Commands exposing (..)
+import ContactList.Model exposing (ContactList)
+import ContactList.Types exposing (..)
+import Navigation
 import Routing exposing (toPath, Route(..))
 
 
-update : Msg -> Model -> ( Model, Cmd Msg )
+update : Msg -> ContactList -> ( ContactList, Cmd Msg )
 update msg model =
     case msg of
         NoOp ->

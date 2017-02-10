@@ -1,12 +1,12 @@
 module Update exposing (..)
 
-import Types exposing (Msg(..))
-import Model exposing (..)
-import Contact.Model
-import Contacts.Update
-import Contact.Update
-import Routing exposing (..)
 import Commands exposing (..)
+import Contact.Model
+import Contact.Update
+import ContactList.Update
+import Model exposing (..)
+import Routing exposing (..)
+import Types exposing (Msg(..))
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -19,13 +19,13 @@ update msg model =
             in
                 urlUpdate currentRoute (initialModel currentRoute)
 
-        ContactsMsg subMsg ->
+        ContactListMsg subMsg ->
             let
                 ( updatedContacts, cmd ) =
-                    Contacts.Update.update subMsg model.contacts
+                    ContactList.Update.update subMsg model.contactList
             in
-                ( { model | contacts = updatedContacts }
-                , Cmd.map ContactsMsg cmd
+                ( { model | contactList = updatedContacts }
+                , Cmd.map ContactListMsg cmd
                 )
 
         ContactMsg subMsg ->
@@ -46,7 +46,7 @@ urlUpdate currentRoute model =
                 | route = currentRoute
                 , contact = Contact.Model.initialModel
               }
-            , Cmd.map ContactsMsg (Commands.fetch model.contacts.search model.contacts.page_number)
+            , Cmd.map ContactListMsg (Commands.fetch model.contactList.search model.contactList.page_number)
             )
 
         ContactRoute id ->

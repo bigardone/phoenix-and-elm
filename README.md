@@ -1,6 +1,6 @@
 # PhoenixAndElm
 
-![Contacts](https://monosnap.com/file/14nD2kWbnvcuBh5a9L9XifX0GQ0OqQ.png)
+![ContactList](https://monosnap.com/file/14nD2kWbnvcuBh5a9L9XifX0GQ0OqQ.png)
 
 ## Phoenix Channels version
 https://github.com/bigardone/phoenix-and-elm/tree/phoenix-channels
