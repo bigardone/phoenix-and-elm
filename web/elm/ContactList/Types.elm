@@ -1,7 +1,7 @@
 module ContactList.Types exposing (..)
 
-import ContactList.Model exposing (ContactList)
 import Http
+import Model exposing (ContactList)
 
 
 type Msg

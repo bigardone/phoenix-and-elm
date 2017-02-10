@@ -1,20 +1,53 @@
 module Model exposing (..)
 
-import Contact.Model as Contact exposing (..)
-import ContactList.Model as ContactList exposing (ContactList)
 import Routing
 
 
 type alias Model =
     { contactList : ContactList
-    , contact : Contact.Model
+    , contact : Maybe Contact
     , route : Routing.Route
+    , search : String
+    , error : Maybe String
+    }
+
+
+type alias ContactList =
+    { entries : List Contact
+    , page_number : Int
+    , total_entries : Int
+    , total_pages : Int
+    }
+
+
+type alias Contact =
+    { id : Int
+    , first_name : String
+    , last_name : String
+    , gender : Int
+    , birth_date : String
+    , location : String
+    , phone_number : String
+    , email : String
+    , headline : String
+    , picture : String
+    }
+
+
+initialContatcList : ContactList
+initialContatcList =
+    { entries = []
+    , page_number = 1
+    , total_entries = 0
+    , total_pages = 0
     }
 
 
 initialModel : Routing.Route -> Model
 initialModel route =
-    { contactList = ContactList.initialModel
-    , contact = Contact.initialModel
+    { contactList = initialContatcList
+    , contact = Nothing
     , route = route
+    , search = ""
+    , error = Nothing
     }

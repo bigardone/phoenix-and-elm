@@ -1,41 +1,44 @@
 module ContactList.View exposing (..)
 
 import Contact.View exposing (..)
-import ContactList.Model exposing (ContactList)
 import ContactList.Types exposing (..)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
+import Model exposing (..)
 import String
 
 
-indexView : ContactList -> Html Msg
+indexView : Model -> Html Msg
 indexView model =
     div
         [ id "home_index" ]
         [ filterView model
-        , paginationView model.total_pages model.page_number
+        , paginationView model.contactList.total_pages model.contactList.page_number
         , div
             []
             [ contactsList model ]
-        , paginationView model.total_pages model.page_number
+        , paginationView model.contactList.total_pages model.contactList.page_number
         ]
 
 
-filterView : ContactList -> Html Msg
+filterView : Model -> Html Msg
 filterView model =
     let
+        totalEntries =
+            model.contactList.total_entries
+
         contactWord =
-            if model.total_entries == 1 then
+            if totalEntries == 1 then
                 "contact"
             else
                 "contacts"
 
         headerText =
-            if model.total_entries == 0 then
+            if totalEntries == 0 then
                 ""
             else
-                (toString model.total_entries) ++ " " ++ contactWord ++ " found"
+                (toString totalEntries) ++ " " ++ contactWord ++ " found"
     in
         div
             [ class "filter-wrapper" ]
@@ -85,10 +88,10 @@ paginationLink currentPage page =
             ]
 
 
-contactsList : ContactList -> Html Msg
+contactsList : Model -> Html Msg
 contactsList model =
-    if model.total_entries > 0 then
-        model.entries
+    if model.contactList.total_entries > 0 then
+        model.contactList.entries
             |> List.map (Contact.View.contactView True)
             |> div [ class "cards-wrapper" ]
     else
@@ -111,7 +114,7 @@ contactsList model =
                 ]
 
 
-resetButton : ContactList -> String -> Html Msg
+resetButton : Model -> String -> Html Msg
 resetButton model className =
     let
         hide =

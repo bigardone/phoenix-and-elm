@@ -1,14 +1,14 @@
 module Contact.View exposing (..)
 
-import Contact.Model exposing (..)
 import ContactList.Types exposing (..)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
+import Model exposing (..)
 
 
-view : Model -> Html Msg
-view model =
+showContactView : Model -> Html Msg
+showContactView model =
     case ( model.contact, model.error ) of
         ( Nothing, Just error ) ->
             errorView error
@@ -80,7 +80,7 @@ contactView clickable model =
                         [ class "info-wrapper" ]
                         [ h4
                             []
-                            [ text (full_name model) ]
+                            [ text (fullName model) ]
                         , ul
                             [ class "meta" ]
                             [ li
@@ -149,6 +149,6 @@ errorView error =
         ]
 
 
-full_name : Contact -> String
-full_name model =
+fullName : Contact -> String
+fullName model =
     model.first_name ++ " " ++ model.last_name

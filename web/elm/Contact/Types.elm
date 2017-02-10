@@ -1,9 +1,9 @@
 module Contact.Types exposing (..)
 
-import Contact.Model exposing (..)
+import Decoders exposing (ContactResponse)
 import Http
 
 
 type Msg
     = FetchContact Int
-    | FetchContactResult (Result Http.Error Model)
+    | FetchContactResult (Result Http.Error ContactResponse)

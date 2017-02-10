@@ -1,9 +1,14 @@
 module Decoders exposing (..)
 
-import Contact.Model exposing (..)
-import ContactList.Model exposing (ContactList)
 import Json.Decode as JD exposing (..)
 import Json.Decode.Extra exposing ((|:))
+import Model exposing (..)
+
+
+type alias ContactResponse =
+    { contact : Maybe Contact
+    , error : Maybe String
+    }
 
 
 contactDecoder : JD.Decoder Contact
@@ -22,10 +27,10 @@ contactDecoder =
         |: (field "picture" string)
 
 
-contactModelDecoder : JD.Decoder Contact.Model.Model
+contactModelDecoder : JD.Decoder ContactResponse
 contactModelDecoder =
     succeed
-        Contact.Model.Model
+        ContactResponse
         |: (maybe (field "contact" contactDecoder))
         |: (maybe (field "error" string))
 
@@ -38,5 +43,3 @@ contactsModelDecoder =
         |: (field "page_number" int)
         |: (field "total_entries" int)
         |: (field "total_pages" int)
-        |: (oneOf [ field "search" string, succeed "" ])
-        |: (oneOf [ field "error" string, succeed "" ])

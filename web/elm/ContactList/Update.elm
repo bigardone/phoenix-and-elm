@@ -1,13 +1,13 @@
 module ContactList.Update exposing (..)
 
 import Commands exposing (..)
-import ContactList.Model exposing (ContactList)
 import ContactList.Types exposing (..)
+import Model exposing (..)
 import Navigation
 import Routing exposing (toPath, Route(..))
 
 
-update : Msg -> ContactList -> ( ContactList, Cmd Msg )
+update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
         NoOp ->
@@ -22,11 +22,11 @@ update msg model =
         SearchInput search ->
             { model | search = search } ! []
 
-        FetchResult (Ok newModel) ->
-            newModel ! []
+        FetchResult (Ok response) ->
+            { model | contactList = response } ! []
 
         FetchResult (Err error) ->
-            { model | error = (toString error) } ! []
+            { model | error = Just (toString error) } ! []
 
         Reset ->
             let

@@ -1,8 +1,8 @@
 module Contact.Update exposing (..)
 
-import Contact.Types exposing (..)
-import Contact.Model exposing (..)
 import Commands exposing (..)
+import Contact.Types exposing (..)
+import Model exposing (..)
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -11,8 +11,8 @@ update msg model =
         FetchContact id ->
             model ! [ fetchContact id ]
 
-        FetchContactResult (Ok newModel) ->
-            newModel ! []
+        FetchContactResult (Ok response) ->
+            { model | contact = response.contact } ! []
 
-        FetchContactResult (Err error) ->
-            { model | error = Just (toString error) } ! []
+        FetchContactResult (Err response) ->
+            { model | error = Just "Something went wrong" } ! []
