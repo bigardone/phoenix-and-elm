@@ -60,12 +60,13 @@ exports.config = {
       elmFolder: 'web/elm',
       mainModules: ['Main.elm'],
       outputFolder: '../static/js',
+      makeParameters: ['--debug'],
     },
     stylus: {
-       plugins: {
-         stylus: ['nib'],
-       },
-     },
+      plugins: {
+        stylus: ['nib'],
+      },
+    },
   },
 
   modules: {
@@ -76,8 +77,8 @@ exports.config = {
 
   npm: {
     enabled: true,
-     styles: {
-       'normalize.css': ['normalize.css']
-     }
+    styles: {
+      'normalize.css': ['normalize.css'],
+    },
   },
 };

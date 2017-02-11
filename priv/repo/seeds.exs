@@ -45,8 +45,8 @@ for index <- 1..100 do
     first_name: first_name,
     last_name: Faker.Name.last_name,
     gender: gender_id,
-    birth_date: "#{Seeds.random_number(1970, 1990)}-#{Seeds.random_number(1, 12)}-#{Seeds.random_number(1,30)}",
-    location: Faker.Lorem.sentence(3),
+    birth_date: "#{Seeds.random_number(1970, 1990)}-#{Seeds.random_number(1, 12)}-#{Seeds.random_number(1,28)}",
+    location: Faker.Address.country(),
     phone_number: Faker.Phone.EnUs.phone,
     email: Faker.Internet.email(first_name),
     picture: "http://api.randomuser.me/portraits/#{picture_gender}/#{index}.jpg",
@@ -59,4 +59,3 @@ for index <- 1..100 do
 
   IO.puts "---- Inserted contact #{contact.id}"
 end
-
