@@ -1,12 +1,8 @@
 module Model exposing (..)
 
-import Routing exposing (Route)
-
 
 type alias Model =
     { contactList : ContactList
-    , contact : Maybe Contact
-    , route : Route
     , search : String
     , error : Maybe String
     }
@@ -43,11 +39,9 @@ initialContatcList =
     }
 
 
-initialModel : Routing.Route -> Model
-initialModel route =
+initialModel : Model
+initialModel =
     { contactList = initialContatcList
-    , contact = Nothing
-    , route = route
     , search = ""
     , error = Nothing
     }

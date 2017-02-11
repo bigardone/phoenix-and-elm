@@ -1,69 +1,27 @@
 module Contact.View exposing (..)
 
-import ContactList.Types exposing (..)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Model exposing (..)
+import Types exposing (..)
 
 
-showContactView : Model -> Html Msg
-showContactView model =
-    case ( model.contact, model.error ) of
-        ( Nothing, Just error ) ->
-            errorView error
-
-        ( Just contact, Nothing ) ->
-            let
-                classes =
-                    classList
-                        [ ( "person-detail", True )
-                        , ( "male", contact.gender == 0 )
-                        , ( "female", contact.gender == 1 )
-                        ]
-            in
-                div
-                    [ id "contacts_show" ]
-                    [ header []
-                        [ h3
-                            []
-                            [ text "Person detail" ]
-                        ]
-                    , a
-                        [ onClick ShowContacts ]
-                        [ text "← Back to people list" ]
-                    , div
-                        [ classes ]
-                        [ contactView False contact ]
-                    ]
-
-        ( _, _ ) ->
-            div [] []
-
-
-contactView : Bool -> Contact -> Html Msg
-contactView clickable model =
+contactView : Contact -> Html Msg
+contactView model =
     let
         classes =
             classList
                 [ ( "card", True )
-                , ( "clickable", clickable )
                 , ( "male", model.gender == 0 )
                 , ( "female", model.gender == 1 )
                 ]
 
-        headerClick =
-            case clickable of
-                True ->
-                    ShowContact model.id
-
-                False ->
-                    NoOp
+        fullName =
+            model.first_name ++ " " ++ model.last_name
     in
         div
-            [ classes
-            , onClick headerClick
-            ]
+            [ classes ]
             [ div
                 [ class "inner" ]
                 [ header
@@ -80,7 +38,7 @@ contactView clickable model =
                         [ class "info-wrapper" ]
                         [ h4
                             []
-                            [ text (fullName model) ]
+                            [ text fullName ]
                         , ul
                             [ class "meta" ]
                             [ li
@@ -125,30 +83,3 @@ contactView clickable model =
                     ]
                 ]
             ]
-
-
-errorView : String -> Html Msg
-errorView error =
-    div
-        [ id "error_index" ]
-        [ div
-            [ class "warning" ]
-            [ span
-                [ class "fa-stack" ]
-                [ i
-                    [ class "fa fa-meh-o fa-stack-2x" ]
-                    []
-                ]
-            , h4
-                []
-                [ text error ]
-            , a
-                [ onClick ShowContacts ]
-                [ text "← Back to people list" ]
-            ]
-        ]
-
-
-fullName : Contact -> String
-fullName model =
-    model.first_name ++ " " ++ model.last_name

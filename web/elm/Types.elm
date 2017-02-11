@@ -1,11 +1,8 @@
 module Types exposing (..)
 
-import Contact.Types exposing (..)
-import ContactList.Types exposing (..)
-import Navigation
+import Http
+import Model exposing (ContactList)
 
 
 type Msg
-    = UrlChange Navigation.Location
-    | ContactListMsg ContactList.Types.Msg
-    | ContactMsg Contact.Types.Msg
+    = FetchResult (Result Http.Error ContactList)
