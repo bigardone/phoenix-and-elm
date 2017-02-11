@@ -1,12 +1,10 @@
-module ContactList.View exposing (..)
+module ContactList.View exposing (indexView)
 
-import Contact.View exposing (..)
+import Contact.View exposing (contactView)
 import Html exposing (..)
 import Html.Attributes exposing (..)
-import Html.Events exposing (..)
 import Messages exposing (..)
 import Model exposing (..)
-import String
 
 
 indexView : Model -> Html Msg
@@ -23,7 +21,7 @@ contactsList : Model -> Html Msg
 contactsList model =
     if model.contactList.total_entries > 0 then
         model.contactList.entries
-            |> List.map Contact.View.contactView
+            |> List.map contactView
             |> div [ class "cards-wrapper" ]
     else
         let

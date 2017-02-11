@@ -11,6 +11,16 @@ type alias ContactResponse =
     }
 
 
+contactListDecoder : JD.Decoder ContactList
+contactListDecoder =
+    succeed
+        ContactList
+        |: (field "entries" (list contactDecoder))
+        |: (field "page_number" int)
+        |: (field "total_entries" int)
+        |: (field "total_pages" int)
+
+
 contactDecoder : JD.Decoder Contact
 contactDecoder =
     succeed
@@ -25,21 +35,3 @@ contactDecoder =
         |: (field "email" string)
         |: (field "headline" string)
         |: (field "picture" string)
-
-
-contactModelDecoder : JD.Decoder ContactResponse
-contactModelDecoder =
-    succeed
-        ContactResponse
-        |: (maybe (field "contact" contactDecoder))
-        |: (maybe (field "error" string))
-
-
-contactsModelDecoder : JD.Decoder ContactList
-contactsModelDecoder =
-    succeed
-        ContactList
-        |: (field "entries" (list contactDecoder))
-        |: (field "page_number" int)
-        |: (field "total_entries" int)
-        |: (field "total_pages" int)

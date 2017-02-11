@@ -11,4 +11,4 @@ update msg model =
             { model | contactList = response } ! []
 
         FetchResult (Err error) ->
-            { model | error = Just (toString error) } ! []
+            { model | error = Just "Something went wrong..." } ! []

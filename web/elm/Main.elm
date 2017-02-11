@@ -10,12 +10,7 @@ import View exposing (view)
 
 init : ( Model, Cmd Msg )
 init =
-    initialModel ! [ fetch "" 1 ]
-
-
-subscriptions : Model -> Sub Msg
-subscriptions model =
-    Sub.none
+    initialModel ! [ fetch ]
 
 
 main : Program Never Model Msg
@@ -24,5 +19,5 @@ main =
         { init = init
         , view = view
         , update = update
-        , subscriptions = subscriptions
+        , subscriptions = always <| Sub.none
         }
