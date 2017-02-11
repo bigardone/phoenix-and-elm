@@ -29,9 +29,7 @@ contactsList model =
         let
             classes =
                 classList
-                    [ ( "warning", True )
-                    , ( "hidden", String.length model.search == 0 )
-                    ]
+                    [ ( "warning", True ) ]
         in
             div
                 [ classes ]
