@@ -1,4 +1,4 @@
-module Types exposing (..)
+module Messages exposing (..)
 
 import Http
 import Model exposing (ContactList)

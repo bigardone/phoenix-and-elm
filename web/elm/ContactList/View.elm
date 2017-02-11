@@ -4,9 +4,9 @@ import Contact.View exposing (..)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
+import Messages exposing (..)
 import Model exposing (..)
 import String
-import Types exposing (..)
 
 
 indexView : Model -> Html Msg

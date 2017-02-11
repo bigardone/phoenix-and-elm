@@ -2,8 +2,8 @@ module Main exposing (..)
 
 import Commands exposing (fetch)
 import Html
+import Messages exposing (Msg(..))
 import Model exposing (..)
-import Types exposing (Msg(..))
 import Update exposing (..)
 import View exposing (view)
 

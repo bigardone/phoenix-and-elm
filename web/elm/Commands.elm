@@ -2,10 +2,10 @@ module Commands exposing (..)
 
 import Decoders exposing (..)
 import Http
-import Types exposing (Msg(..))
+import Messages exposing (Msg(..))
 
 
-fetch : String -> Int -> Cmd Types.Msg
+fetch : String -> Int -> Cmd Msg
 fetch search page =
     let
         apiUrl =
