@@ -7,7 +7,6 @@ defmodule PhoenixAndElm.ContactController do
     search = Map.get(params, "search") || ""
 
     page = Contact
-      |> Contact.search(search)
       |> order_by(:first_name)
       |> Repo.paginate(params)
 
