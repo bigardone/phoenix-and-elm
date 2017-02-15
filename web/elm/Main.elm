@@ -10,7 +10,7 @@ import View exposing (view)
 
 init : ( Model, Cmd Msg )
 init =
-    initialModel ! [ fetch ]
+    initialModel ! [ fetch 1 ]
 
 
 main : Program Never Model Msg
