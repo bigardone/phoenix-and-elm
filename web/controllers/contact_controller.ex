@@ -8,6 +8,6 @@ defmodule PhoenixAndElm.ContactController do
       |> order_by(:first_name)
       |> Repo.paginate(params)
 
-    render conn, page: page, search: search
+    render conn, page: page
   end
 end
