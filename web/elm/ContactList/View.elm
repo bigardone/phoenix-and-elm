@@ -12,12 +12,55 @@ indexView : Model -> Html Msg
 indexView model =
     div
         [ id "home_index" ]
-        [ paginationList model.contactList.total_pages model.contactList.page_number
+        [ searchSection model
+        , paginationList model.contactList.total_pages model.contactList.page_number
         , div
             []
             [ contactsList model ]
         , paginationList model.contactList.total_pages model.contactList.page_number
         ]
+
+
+searchSection : Model -> Html Msg
+searchSection model =
+    let
+        totalEntries =
+            model.contactList.total_entries
+
+        contactWord =
+            if totalEntries == 1 then
+                "contact"
+            else
+                "contacts"
+
+        headerText =
+            if totalEntries == 0 then
+                ""
+            else
+                (toString totalEntries) ++ " " ++ contactWord ++ " found"
+    in
+        div
+            [ class "filter-wrapper" ]
+            [ div
+                [ class "overview-wrapper" ]
+                [ h3
+                    []
+                    [ text headerText ]
+                ]
+            , div
+                [ class "form-wrapper" ]
+                [ Html.form
+                    [ onSubmit HandleFormSubmit ]
+                    [ input
+                        [ type_ "search"
+                        , placeholder "Search contacts..."
+                        , value model.search
+                        , onInput HandleSearchInput
+                        ]
+                        []
+                    ]
+                ]
+            ]
 
 
 contactsList : Model -> Html Msg

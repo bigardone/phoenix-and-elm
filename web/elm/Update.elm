@@ -15,4 +15,10 @@ update msg model =
             { model | error = Just "Something went wrong..." } ! []
 
         Paginate pageNumber ->
-            model ! [ fetch pageNumber ]
+            model ! [ fetch pageNumber model.search ]
+
+        HandleSearchInput value ->
+            { model | search = value } ! []
+
+        HandleFormSubmit ->
+            model ! [ fetch 1 model.search ]
