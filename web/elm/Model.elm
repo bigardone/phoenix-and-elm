@@ -29,8 +29,8 @@ type alias Contact =
     }
 
 
-initialContatcList : ContactList
-initialContatcList =
+initialContactList : ContactList
+initialContactList =
     { entries = []
     , page_number = 1
     , total_entries = 0
@@ -40,6 +40,6 @@ initialContatcList =
 
 initialModel : Model
 initialModel =
-    { contactList = initialContatcList
+    { contactList = initialContactList
     , error = Nothing
     }
