@@ -6,7 +6,7 @@ import Messages exposing (..)
 import Model exposing (..)
 
 
-contactView : Contact -> Html Msg
+contactView : Contact -> ( String, Html Msg )
 contactView model =
     let
         classes =
@@ -19,7 +19,8 @@ contactView model =
         fullName =
             model.first_name ++ " " ++ model.last_name
     in
-        div
+        ( toString model.id
+        , div
             [ classes ]
             [ div
                 [ class "inner" ]
@@ -82,3 +83,4 @@ contactView model =
                     ]
                 ]
             ]
+        )

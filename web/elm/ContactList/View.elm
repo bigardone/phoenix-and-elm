@@ -4,6 +4,7 @@ import Contact.View exposing (contactView)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
+import Html.Keyed exposing (..)
 import Messages exposing (..)
 import Model exposing (..)
 
@@ -27,10 +28,10 @@ searchSection model =
         Failure error ->
             text error
 
-        Success contactList ->
+        Success page ->
             let
                 totalEntries =
-                    contactList.total_entries
+                    page.total_entries
 
                 contactWord =
                     if totalEntries == 1 then
@@ -74,11 +75,11 @@ searchSection model =
 contactsList : Model -> Html Msg
 contactsList model =
     case model.contactList of
-        Success contactList ->
-            if contactList.total_entries > 0 then
-                contactList.entries
+        Success page ->
+            if page.total_entries > 0 then
+                page.entries
                     |> List.map contactView
-                    |> div [ class "cards-wrapper" ]
+                    |> Html.Keyed.node "div" [ class "cards-wrapper" ]
             else
                 let
                     classes =
@@ -105,19 +106,20 @@ paginationList contactList =
         Success page ->
             List.range 1 page.total_pages
                 |> List.map (paginationLink page.page_number)
-                |> ul [ class "pagination" ]
+                |> Html.Keyed.ul [ class "pagination" ]
 
         _ ->
             text ""
 
 
-paginationLink : Int -> Int -> Html Msg
+paginationLink : Int -> Int -> ( String, Html Msg )
 paginationLink currentPage page =
     let
         classes =
             classList [ ( "active", currentPage == page ) ]
     in
-        li
+        ( toString page
+        , li
             []
             [ a
                 [ classes
@@ -125,3 +127,4 @@ paginationLink currentPage page =
                 ]
                 []
             ]
+        )
