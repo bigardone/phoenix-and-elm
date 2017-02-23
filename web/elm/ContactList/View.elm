@@ -13,84 +13,102 @@ indexView model =
     div
         [ id "home_index" ]
         [ searchSection model
-        , paginationList model.contactList.total_pages model.contactList.page_number
+        , paginationList model.contactList
         , div
             []
             [ contactsList model ]
-        , paginationList model.contactList.total_pages model.contactList.page_number
+        , paginationList model.contactList
         ]
 
 
 searchSection : Model -> Html Msg
 searchSection model =
-    let
-        totalEntries =
-            model.contactList.total_entries
+    case model.contactList of
+        Failure error ->
+            text error
 
-        contactWord =
-            if totalEntries == 1 then
-                "contact"
-            else
-                "contacts"
+        Success contactList ->
+            let
+                totalEntries =
+                    contactList.total_entries
 
-        headerText =
-            if totalEntries == 0 then
-                ""
-            else
-                (toString totalEntries) ++ " " ++ contactWord ++ " found"
-    in
-        div
-            [ class "filter-wrapper" ]
-            [ div
-                [ class "overview-wrapper" ]
-                [ h3
-                    []
-                    [ text headerText ]
-                ]
-            , div
-                [ class "form-wrapper" ]
-                [ Html.form
-                    [ onSubmit HandleFormSubmit ]
-                    [ input
-                        [ type_ "search"
-                        , placeholder "Search contacts..."
-                        , value model.search
-                        , onInput HandleSearchInput
+                contactWord =
+                    if totalEntries == 1 then
+                        "contact"
+                    else
+                        "contacts"
+
+                headerText =
+                    if totalEntries == 0 then
+                        ""
+                    else
+                        (toString totalEntries) ++ " " ++ contactWord ++ " found"
+            in
+                div
+                    [ class "filter-wrapper" ]
+                    [ div
+                        [ class "overview-wrapper" ]
+                        [ h3
+                            []
+                            [ text headerText ]
                         ]
-                        []
+                    , div
+                        [ class "form-wrapper" ]
+                        [ Html.form
+                            [ onSubmit HandleFormSubmit ]
+                            [ input
+                                [ type_ "search"
+                                , placeholder "Search contacts..."
+                                , value model.search
+                                , onInput HandleSearchInput
+                                ]
+                                []
+                            ]
+                        ]
                     ]
-                ]
-            ]
+
+        _ ->
+            text ""
 
 
 contactsList : Model -> Html Msg
 contactsList model =
-    if model.contactList.total_entries > 0 then
-        model.contactList.entries
-            |> List.map contactView
-            |> div [ class "cards-wrapper" ]
-    else
-        let
-            classes =
-                classList
-                    [ ( "warning", True ) ]
-        in
-            div
-                [ classes ]
-                [ span
-                    [ class "fa-stack" ]
-                    [ i [ class "fa fa-meh-o fa-stack-2x" ] [] ]
-                , h4
-                    []
-                    [ text "No contacts found..." ]
-                ]
+    case model.contactList of
+        Success contactList ->
+            if contactList.total_entries > 0 then
+                contactList.entries
+                    |> List.map contactView
+                    |> div [ class "cards-wrapper" ]
+            else
+                let
+                    classes =
+                        classList
+                            [ ( "warning", True ) ]
+                in
+                    div
+                        [ classes ]
+                        [ span
+                            [ class "fa-stack" ]
+                            [ i [ class "fa fa-meh-o fa-stack-2x" ] [] ]
+                        , h4
+                            []
+                            [ text "No contacts found..." ]
+                        ]
+
+        _ ->
+            text ""
 
 
-paginationList : Int -> Int -> Html Msg
-paginationList totalPages pageNumber =
-    List.range 1 totalPages
-        |> List.map (paginationLink pageNumber)
-        |> ul [ class "pagination" ]
+paginationList : RemoteData String ContactList -> Html Msg
+paginationList contactList =
+    case contactList of
+        Success page ->
+            List.range 1 page.total_pages
+                |> List.map (paginationLink page.page_number)
+                |> ul [ class "pagination" ]
+
+        _ ->
+            text ""
 
 
 paginationLink : Int -> Int -> Html Msg

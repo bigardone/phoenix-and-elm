@@ -9,10 +9,10 @@ update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
         FetchResult (Ok response) ->
-            { model | contactList = response } ! []
+            { model | contactList = Success response } ! []
 
         FetchResult (Err error) ->
-            { model | error = Just "Something went wrong..." } ! []
+            { model | contactList = Failure "Something went wrong..." } ! []
 
         Paginate pageNumber ->
             model ! [ fetch pageNumber model.search ]
