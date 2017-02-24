@@ -9,3 +9,4 @@ type Msg
     | Paginate Int
     | HandleSearchInput String
     | HandleFormSubmit
+    | ResetSearch

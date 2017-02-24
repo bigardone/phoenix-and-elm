@@ -57,7 +57,8 @@ searchSection model =
                         [ class "form-wrapper" ]
                         [ Html.form
                             [ onSubmit HandleFormSubmit ]
-                            [ input
+                            [ resetButton model "reset"
+                            , input
                                 [ type_ "search"
                                 , placeholder "Search contacts..."
                                 , value model.search
@@ -94,6 +95,7 @@ contactsList model =
                         , h4
                             []
                             [ text "No contacts found..." ]
+                        , resetButton model "btn"
                         ]
 
         _ ->
@@ -128,3 +130,22 @@ paginationLink currentPage page =
                 []
             ]
         )
+
+
+resetButton : Model -> String -> Html Msg
+resetButton model className =
+    let
+        hide =
+            (String.length model.search) < 1
+
+        classes =
+            classList
+                [ ( className, True )
+                , ( "hidden", hide )
+                ]
+    in
+        a
+            [ classes
+            , onClick ResetSearch
+            ]
+            [ text "Reset search" ]

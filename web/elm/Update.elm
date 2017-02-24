@@ -22,3 +22,6 @@ update msg model =
 
         HandleFormSubmit ->
             model ! [ fetch 1 model.search ]
+
+        ResetSearch ->
+            { model | search = "" } ! [ fetch 1 "" ]
