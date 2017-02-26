@@ -2,7 +2,7 @@ module Model exposing (..)
 
 
 type RemoteData e a
-    = NotRequestedYet
+    = NotRequested
     | Requesting
     | Failure e
     | Success a
@@ -47,6 +47,6 @@ initialContactList =
 
 initialModel : Model
 initialModel =
-    { contactList = NotRequestedYet
+    { contactList = NotRequested
     , search = ""
     }
