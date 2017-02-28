@@ -13,21 +13,70 @@ indexView : Model -> Html Msg
 indexView model =
     div
         [ id "home_index" ]
-        [ searchSection model
-        , paginationList model.contactList
-        , div
-            []
-            [ contactsList model ]
-        , paginationList model.contactList
-        ]
+        (viewContent model)
+
+
+viewContent : Model -> List (Html Msg)
+viewContent model =
+    case model.contactList of
+        NotRequested ->
+            [ text "" ]
+
+        Requesting ->
+            [ searchSection model
+            , warningMessage
+                "fa fa-spin fa-cog fa-2x fa-fw"
+                "Searching for contacts"
+                (text "")
+            ]
+
+        Failure error ->
+            [ warningMessage
+                "fa fa-meh-o fa-stack-2x"
+                error
+                (text "")
+            ]
+
+        Success page ->
+            [ searchSection model
+            , paginationList page
+            , div
+                []
+                [ contactsList model page ]
+            , paginationList page
+            ]
 
 
 searchSection : Model -> Html Msg
 searchSection model =
-    case model.contactList of
-        Failure error ->
-            text error
+    div
+        [ class "filter-wrapper" ]
+        [ div
+            [ class "overview-wrapper" ]
+            [ h3
+                []
+                [ text <| headerText model ]
+            ]
+        , div
+            [ class "form-wrapper" ]
+            [ Html.form
+                [ onSubmit HandleFormSubmit ]
+                [ resetButton model "reset"
+                , input
+                    [ type_ "search"
+                    , placeholder "Search contacts..."
+                    , value model.search
+                    , onInput HandleSearchInput
+                    ]
+                    []
+                ]
+            ]
+        ]
 
+
+headerText : Model -> String
+headerText model =
+    case model.contactList of
         Success page ->
             let
                 totalEntries =
@@ -38,80 +87,34 @@ searchSection model =
                         "contact"
                     else
                         "contacts"
-
-                headerText =
-                    if totalEntries == 0 then
-                        ""
-                    else
-                        (toString totalEntries) ++ " " ++ contactWord ++ " found"
             in
-                div
-                    [ class "filter-wrapper" ]
-                    [ div
-                        [ class "overview-wrapper" ]
-                        [ h3
-                            []
-                            [ text headerText ]
-                        ]
-                    , div
-                        [ class "form-wrapper" ]
-                        [ Html.form
-                            [ onSubmit HandleFormSubmit ]
-                            [ resetButton model "reset"
-                            , input
-                                [ type_ "search"
-                                , placeholder "Search contacts..."
-                                , value model.search
-                                , onInput HandleSearchInput
-                                ]
-                                []
-                            ]
-                        ]
-                    ]
+                if totalEntries == 0 then
+                    ""
+                else
+                    (toString totalEntries) ++ " " ++ contactWord ++ " found"
 
         _ ->
-            text ""
+            ""
 
 
-contactsList : Model -> Html Msg
-contactsList model =
-    case model.contactList of
-        Success page ->
-            if page.total_entries > 0 then
-                page.entries
-                    |> List.map contactView
-                    |> Html.Keyed.node "div" [ class "cards-wrapper" ]
-            else
-                let
-                    classes =
-                        classList
-                            [ ( "warning", True ) ]
-                in
-                    div
-                        [ classes ]
-                        [ span
-                            [ class "fa-stack" ]
-                            [ i [ class "fa fa-meh-o fa-stack-2x" ] [] ]
-                        , h4
-                            []
-                            [ text "No contacts found..." ]
-                        , resetButton model "btn"
-                        ]
-
-        _ ->
-            text ""
+contactsList : Model -> ContactList -> Html Msg
+contactsList model page =
+    if page.total_entries > 0 then
+        page.entries
+            |> List.map contactView
+            |> Html.Keyed.node "div" [ class "cards-wrapper" ]
+    else
+        warningMessage
+            "fa fa-meh-o fa-stack-2x"
+            "No contacts found..."
+            (resetButton model "btn")
 
 
-paginationList : RemoteData String ContactList -> Html Msg
-paginationList contactList =
-    case contactList of
-        Success page ->
-            List.range 1 page.total_pages
-                |> List.map (paginationLink page.page_number)
-                |> Html.Keyed.ul [ class "pagination" ]
-
-        _ ->
-            text ""
+paginationList : ContactList -> Html Msg
+paginationList page =
+    List.range 1 page.total_pages
+        |> List.map (paginationLink page.page_number)
+        |> Html.Keyed.ul [ class "pagination" ]
 
 
 paginationLink : Int -> Int -> ( String, Html Msg )
@@ -149,3 +152,17 @@ resetButton model className =
             , onClick ResetSearch
             ]
             [ text "Reset search" ]
+
+
+warningMessage : String -> String -> Html Msg -> Html Msg
+warningMessage iconClasses message content =
+    div
+        [ class "warning" ]
+        [ span
+            [ class "fa-stack" ]
+            [ i [ class iconClasses ] [] ]
+        , h4
+            []
+            [ text message ]
+        , content
+        ]
