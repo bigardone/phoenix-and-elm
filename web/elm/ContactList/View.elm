@@ -139,7 +139,7 @@ resetButton : Model -> String -> Html Msg
 resetButton model className =
     let
         hide =
-            (String.length model.search) < 1
+            model.search == ""
 
         classes =
             classList
