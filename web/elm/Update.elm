@@ -3,7 +3,8 @@ module Update exposing (..)
 import Commands exposing (fetch)
 import Messages exposing (..)
 import Model exposing (..)
-import Routing exposing (Route(..), parse)
+import Navigation
+import Routing exposing (Route(..), parse, toPath)
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -33,6 +34,9 @@ update msg model =
                     parse location
             in
                 urlUpdate { model | route = currentRoute }
+
+        NavigateTo route ->
+            model ! [ Navigation.newUrl <| toPath route ]
 
 
 urlUpdate : Model -> ( Model, Cmd Msg )
