@@ -1,7 +1,7 @@
 module Messages exposing (..)
 
 import Http
-import Model exposing (ContactList)
+import Model exposing (ContactList, Contact)
 import Navigation
 import Routing exposing (Route)
 
@@ -14,3 +14,4 @@ type Msg
     | ResetSearch
     | UrlChange Navigation.Location
     | NavigateTo Route
+    | FetchContactResult (Result Http.Error Contact)
