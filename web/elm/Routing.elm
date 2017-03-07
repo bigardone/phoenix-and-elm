@@ -6,6 +6,7 @@ import UrlParser exposing (..)
 
 type Route
     = HomeIndexRoute
+    | ShowContactRoute Int
     | NotFoundRoute
 
 
@@ -15,6 +16,9 @@ toPath route =
         HomeIndexRoute ->
             "/"
 
+        ShowContactRoute id ->
+            "/contacts/" ++ toString id
+
         NotFoundRoute ->
             "/not-found"
 
@@ -22,7 +26,9 @@ toPath route =
 matchers : Parser (Route -> a) a
 matchers =
     oneOf
-        [ map HomeIndexRoute <| s "" ]
+        [ map HomeIndexRoute <| s ""
+        , map ShowContactRoute <| s "contacts" </> int
+        ]
 
 
 parse : Navigation.Location -> Route
