@@ -1,5 +1,7 @@
 module View exposing (..)
 
+import Common.View exposing (warningMessage, backLink)
+import Contact.View exposing (showContactView)
 import ContactList.View exposing (indexView)
 import Html exposing (..)
 import Html.Attributes exposing (..)
@@ -35,30 +37,16 @@ page model =
         HomeIndexRoute ->
             indexView model
 
+        ShowContactRoute id ->
+            showContactView model
+
         NotFoundRoute ->
             notFoundView
 
 
 notFoundView : Html Msg
 notFoundView =
-    div
-        [ id "error_index" ]
-        [ div
-            [ class "warning" ]
-            [ span
-                [ class "fa-stack" ]
-                [ i
-                    [ class "fa fa-meh-o fa-stack-2x" ]
-                    []
-                ]
-            , h4
-                []
-                [ text "404" ]
-            , p
-                []
-                [ text "The page you're looking for can't be found." ]
-            , a
-                [ onClick <| NavigateTo HomeIndexRoute ]
-                [ text "Back to home" ]
-            ]
-        ]
+    warningMessage
+        "fa fa-meh-o fa-stack-2x"
+        "Page not found"
+        (backLink HomeIndexRoute)
