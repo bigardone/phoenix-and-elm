@@ -2,6 +2,7 @@ module Messages exposing (..)
 
 import Http
 import Model exposing (ContactList)
+import Navigation
 
 
 type Msg
@@ -10,3 +11,4 @@ type Msg
     | HandleSearchInput String
     | HandleFormSubmit
     | ResetSearch
+    | UrlChange Navigation.Location

@@ -3,6 +3,7 @@ module Update exposing (..)
 import Commands exposing (fetch)
 import Messages exposing (..)
 import Model exposing (..)
+import Routing exposing (Route(..), parse)
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -25,3 +26,20 @@ update msg model =
 
         ResetSearch ->
             { model | search = "" } ! [ fetch 1 "" ]
+
+        UrlChange location ->
+            let
+                currentRoute =
+                    parse location
+            in
+                urlUpdate { model | route = currentRoute }
+
+
+urlUpdate : Model -> ( Model, Cmd Msg )
+urlUpdate model =
+    case model.route of
+        HomeIndexRoute ->
+            model ! [ fetch 1 "" ]
+
+        _ ->
+            model ! []
