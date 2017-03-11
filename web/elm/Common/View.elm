@@ -1,10 +1,10 @@
-module Common.View exposing (warningMessage, backLink)
+module Common.View exposing (warningMessage, backToHomeLink)
 
 import Html exposing (..)
 import Html.Attributes exposing (class)
 import Html.Events exposing (..)
 import Messages exposing (Msg(..))
-import Routing exposing (Route)
+import Routing exposing (Route(..))
 
 
 warningMessage : String -> String -> Html Msg -> Html Msg
@@ -21,8 +21,8 @@ warningMessage iconClasses message content =
         ]
 
 
-backLink : Route -> Html Msg
-backLink route =
+backToHomeLink : Html Msg
+backToHomeLink =
     a
-        [ onClick <| NavigateTo route ]
+        [ onClick <| NavigateTo HomeIndexRoute ]
         [ text "← Back to contact list" ]

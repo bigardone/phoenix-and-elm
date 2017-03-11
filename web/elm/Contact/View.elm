@@ -1,6 +1,6 @@
 module Contact.View exposing (..)
 
-import Common.View exposing (warningMessage, backLink)
+import Common.View exposing (warningMessage, backToHomeLink)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
@@ -113,7 +113,7 @@ showContactView model =
                             []
                             [ text "Person detail" ]
                         ]
-                    , backLink HomeIndexRoute
+                    , backToHomeLink
                     , div
                         [ classes ]
                         [ content ]
@@ -129,7 +129,7 @@ showContactView model =
             warningMessage
                 "fa fa-meh-o fa-stack-2x"
                 error
-                (backLink HomeIndexRoute)
+                backToHomeLink
 
         NotRequested ->
             text ""

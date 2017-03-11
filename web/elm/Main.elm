@@ -1,6 +1,5 @@
 module Main exposing (..)
 
-import Html.Lazy exposing (lazy)
 import Messages exposing (Msg(..))
 import Model exposing (..)
 import Navigation
@@ -25,7 +24,7 @@ main : Program Never Model Msg
 main =
     Navigation.program UrlChange
         { init = init
-        , view = lazy view
+        , view = view
         , update = update
         , subscriptions = always <| Sub.none
         }
