@@ -44,6 +44,9 @@ update msg model =
         FetchContactResult (Err error) ->
             { model | contact = Failure "Contact not found" } ! []
 
+        UpdateSocketState newState ->
+            { model | socketState = newState } ! []
+
 
 urlUpdate : Model -> ( Model, Cmd Msg )
 urlUpdate model =

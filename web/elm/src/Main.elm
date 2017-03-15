@@ -4,6 +4,7 @@ import Messages exposing (Msg(..))
 import Model exposing (..)
 import Navigation
 import Routing exposing (parse)
+import Subscriptions exposing (subscriptions)
 import Update exposing (..)
 import View exposing (view)
 
@@ -26,5 +27,5 @@ main =
         { init = init
         , view = view
         , update = update
-        , subscriptions = always <| Sub.none
+        , subscriptions = subscriptions
         }

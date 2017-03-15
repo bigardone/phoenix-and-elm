@@ -10,6 +10,13 @@ type RemoteData e a
     | Success a
 
 
+type SocketState
+    = JoiningLobby
+    | JoinedLobby
+    | LeavingLobby
+    | LeftLobby
+
+
 type alias Flags =
     { socketUrl : String }
 
@@ -20,6 +27,7 @@ type alias Model =
     , route : Route
     , contact : RemoteData String Contact
     , flags : Flags
+    , socketState : SocketState
     }
 
 
@@ -61,4 +69,5 @@ initialModel flags route =
     , route = route
     , contact = NotRequested
     , flags = flags
+    , socketState = JoiningLobby
     }
