@@ -2,7 +2,7 @@ defmodule PhoenixAndElm.UserSocket do
   use Phoenix.Socket
 
   ## Channels
-  # channel "room:*", PhoenixAndElm.RoomChannel
+  channel "lobby", PhoenixAndElm.LobbyChannel
 
   ## Transports
   transport :websocket, Phoenix.Transports.WebSocket

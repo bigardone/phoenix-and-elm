@@ -9,17 +9,6 @@ defmodule PhoenixAndElm.Router do
     plug :put_secure_browser_headers
   end
 
-  pipeline :api do
-    plug :accepts, ["json"]
-  end
-
-  # Other scopes may use custom stacks.
-  scope "/api", PhoenixAndElm do
-    pipe_through :api
-
-    resources "/contacts", ContactController, only: [:index, :show]
-  end
-
   scope "/", PhoenixAndElm do
     pipe_through :browser # Use the default browser stack
 
