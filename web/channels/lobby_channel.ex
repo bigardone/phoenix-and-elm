@@ -30,7 +30,7 @@ defmodule PhoenixAndElm.LobbyChannel do
       nil ->
         {:reply, {:error, %{error: "Contact no found"}}, socket}
       _ ->
-        {:reply, {:ok, %{contact: contact}}, socket}
+        {:reply, {:ok, contact}, socket}
     end
   end
 end

@@ -1,29 +1,35 @@
 module Commands exposing (..)
 
-import Decoders exposing (contactListDecoder, contactDecoder)
-import Http
+import Json.Encode as JE
 import Messages exposing (Msg(..))
+import Phoenix exposing (..)
+import Phoenix.Push as Push
 
 
-fetch : Int -> String -> Cmd Msg
-fetch page search =
+fetch : String -> Int -> String -> Cmd Msg
+fetch socketUrl page search =
     let
-        apiUrl =
-            "/api/contacts?page=" ++ (toString page) ++ "&search=" ++ search
+        payload =
+            JE.object
+                [ ( "page", JE.int page )
+                , ( "search", JE.string search )
+                ]
 
-        request =
-            Http.get apiUrl contactListDecoder
+        push =
+            Push.init "lobby" "contacts"
+                |> Push.withPayload payload
+                |> Push.onOk FetchSuccess
+                |> Push.onError FetchError
     in
-        Http.send FetchResult request
+        Phoenix.push socketUrl push
 
 
-fetchContact : Int -> Cmd Msg
-fetchContact id =
+fetchContact : String -> Int -> Cmd Msg
+fetchContact socketUrl id =
     let
-        apiUrl =
-            "/api/contacts/" ++ toString id
-
-        request =
-            Http.get apiUrl contactDecoder
+        push =
+            Push.init "lobby" ("contact:" ++ toString id)
+                |> Push.onOk FetchContactSuccess
+                |> Push.onError FetchContactError
     in
-        Http.send FetchContactResult request
+        Phoenix.push socketUrl push

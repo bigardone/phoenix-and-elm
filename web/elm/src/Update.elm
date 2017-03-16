@@ -1,6 +1,8 @@
 module Update exposing (..)
 
 import Commands exposing (fetch, fetchContact)
+import Decoders exposing (..)
+import Json.Decode as JD
 import Messages exposing (..)
 import Model exposing (..)
 import Navigation
@@ -10,23 +12,28 @@ import Routing exposing (Route(..), parse, toPath)
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
-        FetchResult (Ok response) ->
-            { model | contactList = Success response } ! []
+        FetchSuccess raw ->
+            case JD.decodeValue contactListDecoder raw of
+                Ok payload ->
+                    { model | contactList = Success payload } ! []
 
-        FetchResult (Err error) ->
-            { model | contactList = Failure "Something went wrong..." } ! []
+                Err err ->
+                    { model | contactList = Failure "Error while decoding contact list" } ! []
+
+        FetchError raw ->
+            { model | contactList = Failure "Error while fetching contact list" } ! []
 
         Paginate pageNumber ->
-            model ! [ fetch pageNumber model.search ]
+            model ! [ fetch model.flags.socketUrl pageNumber model.search ]
 
         HandleSearchInput value ->
             { model | search = value } ! []
 
         HandleFormSubmit ->
-            { model | contactList = Requesting } ! [ fetch 1 model.search ]
+            { model | contactList = Requesting } ! [ fetch model.flags.socketUrl 1 model.search ]
 
         ResetSearch ->
-            { model | search = "" } ! [ fetch 1 "" ]
+            { model | search = "" } ! [ fetch model.flags.socketUrl 1 "" ]
 
         UrlChange location ->
             let
@@ -38,10 +45,15 @@ update msg model =
         NavigateTo route ->
             model ! [ Navigation.newUrl <| toPath route ]
 
-        FetchContactResult (Ok response) ->
-            { model | contact = Success response } ! []
+        FetchContactSuccess raw ->
+            case JD.decodeValue contactDecoder raw of
+                Ok payload ->
+                    { model | contact = Success payload } ! []
 
-        FetchContactResult (Err error) ->
+                Err err ->
+                    { model | contact = Failure "Error while decoding contact" } ! []
+
+        FetchContactError raw ->
             { model | contact = Failure "Contact not found" } ! []
 
         UpdateSocketState newState ->
@@ -54,13 +66,13 @@ urlUpdate model =
         HomeIndexRoute ->
             case model.contactList of
                 NotRequested ->
-                    model ! [ fetch 1 "" ]
+                    model ! [ fetch model.flags.socketUrl 1 "" ]
 
                 _ ->
                     model ! []
 
         ShowContactRoute id ->
-            { model | contact = Requesting } ! [ fetchContact id ]
+            { model | contact = Requesting } ! [ fetchContact model.flags.socketUrl id ]
 
         _ ->
             model ! []
