@@ -1,13 +1,13 @@
-defmodule PhoenixAndElm.LobbyChannel do
+defmodule PhoenixAndElm.ContactsChannel do
   use Phoenix.Channel
   alias PhoenixAndElm.{Contact, Repo}
   import Ecto.Query, only: [order_by: 2]
 
   require Logger
 
-  def join("lobby", _, socket), do: {:ok, socket}
+  def join("contacts", _, socket), do: {:ok, socket}
 
-  def handle_in("contacts", params, socket) do
+  def handle_in("contacts:fetch", params, socket) do
     Logger.info "Handling contacts..."
 
     search = Map.get(params, "search") || ""

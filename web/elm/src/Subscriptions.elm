@@ -12,9 +12,9 @@ socket socketUrl =
     Socket.init socketUrl
 
 
-lobby : Channel Msg
-lobby =
-    Channel.init "lobby"
+contacts : Channel Msg
+contacts =
+    Channel.init "contacts"
         |> Channel.onJoin (\_ -> UpdateSocketState JoinedLobby)
         |> Channel.withDebug
 
@@ -25,10 +25,10 @@ subscriptions model =
         channels =
             case model.socketState of
                 JoiningLobby ->
-                    [ lobby ]
+                    [ contacts ]
 
                 JoinedLobby ->
-                    [ lobby ]
+                    [ contacts ]
 
                 _ ->
                     []

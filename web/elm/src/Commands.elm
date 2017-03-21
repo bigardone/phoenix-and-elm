@@ -16,7 +16,7 @@ fetch socketUrl page search =
                 ]
 
         push =
-            Push.init "lobby" "contacts"
+            Push.init "contacts" "contacts:fetch"
                 |> Push.withPayload payload
                 |> Push.onOk FetchSuccess
                 |> Push.onError FetchError
@@ -28,7 +28,7 @@ fetchContact : String -> Int -> Cmd Msg
 fetchContact socketUrl id =
     let
         push =
-            Push.init "lobby" ("contact:" ++ toString id)
+            Push.init "contacts" ("contact:" ++ toString id)
                 |> Push.onOk FetchContactSuccess
                 |> Push.onError FetchContactError
     in
