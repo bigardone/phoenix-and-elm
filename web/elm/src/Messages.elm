@@ -1,8 +1,6 @@
 module Messages exposing (..)
 
-import Http
 import Json.Encode as JE
-import Model exposing (ContactList, Contact, SocketState)
 import Navigation
 import Routing exposing (Route)
 
@@ -18,4 +16,3 @@ type Msg
     | NavigateTo Route
     | FetchContactSuccess JE.Value
     | FetchContactError JE.Value
-    | UpdateSocketState SocketState

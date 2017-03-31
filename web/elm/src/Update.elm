@@ -56,9 +56,6 @@ update msg model =
         FetchContactError raw ->
             { model | contact = Failure "Contact not found" } ! []
 
-        UpdateSocketState newState ->
-            { model | socketState = newState } ! []
-
 
 urlUpdate : Model -> ( Model, Cmd Msg )
 urlUpdate model =
