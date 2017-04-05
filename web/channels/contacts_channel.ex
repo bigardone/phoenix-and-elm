@@ -23,13 +23,12 @@ defmodule PhoenixAndElm.ContactsChannel do
   def handle_in("contact:" <> contact_id, _, socket) do
     Logger.info "Handling contact..."
 
-    contact = Contact
+    Contact
     |> Repo.get(contact_id)
-
-    case contact do
+    |> case do
       nil ->
         {:reply, {:error, %{error: "Contact no found"}}, socket}
-      _ ->
+      contact ->
         {:reply, {:ok, contact}, socket}
     end
   end
