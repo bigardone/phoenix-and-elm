@@ -49,7 +49,7 @@ for index <- 1..100 do
     location: Faker.Address.country(),
     phone_number: Faker.Phone.EnUs.phone,
     email: Faker.Internet.email(first_name),
-    picture: "http://api.randomuser.me/portraits/#{picture_gender}/#{index}.jpg",
+    picture: "https://api.randomuser.me/portraits/#{picture_gender}/#{index}.jpg",
     headline: Faker.Lorem.sentence(3),
   }
 
